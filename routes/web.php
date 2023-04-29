@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminHomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,8 +14,20 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [AdminHomeController::class, 'index'])->name('index');
+Route::prefix('admin')->name('admin_')->group(function () {
+    Route::get('/', [AdminHomeController::class, 'index'])->name('adminhome');
 
+    //****************ADMİN CATEGORY ROUTES*****************************
+    Route::prefix('category')->name('category_')->controller(AdminCategoryController::class)->group(function () {
+        Route::get('/', 'index')->name('home');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::post('/update/{id}', 'update')->name('update');
+        Route::get('/delete/{id}', 'destroy')->name('delete');
+        Route::get('/show/{id}', 'show')->name('show');
+    });
+});
 
 Route::middleware([
     'auth:sanctum',
