@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Kategori Detay : '.$data->title)
+@section('title', 'Beden Detay : '.$data->title)
 
 @section('content')
 
@@ -14,7 +14,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/admin">Anasayfa</a></li>
-              <li class="breadcrumb-item"><a href="/admin/category">Kategori</a></li>
+              <li class="breadcrumb-item"><a href="/admin/size">Beden</a></li>
               <li class="breadcrumb-item active">Detay</li>
             </ol>
           </div>
@@ -25,8 +25,8 @@
     <!-- Main content -->
     <section class="content">
         <div>
-            <td><a href="/admin/category/edit/{{$data->id}}" class="btn btn-primary btn-rounded btn-fw">Güncelle</a></td>
-            <td><a href="/admin/category/delete/{{$data->id}}" class="btn btn-danger btn-rounded btn-fw">Sil</a></td>
+            <td><a href="/admin/size/edit/{{$data->id}}" class="btn btn-primary btn-rounded btn-fw">Güncelle</a></td>
+            <td><a href="/admin/size/delete/{{$data->id}}" class="btn btn-danger btn-rounded btn-fw">Sil</a></td>
         </div>
         <div class="table-responsive pt-3">
             <table class="table table-bordered">
@@ -37,24 +37,6 @@
                 <tr>
                     <th style="width:30px">Başlık</th>
                     <td>{{$data->title}}</td>
-                </tr>
-                <tr>
-                    <th style="width: 30px">Anahtar Kelimeler</th>
-                    <td>{{$data->keywords}}</td>
-                </tr>
-                <tr>
-                    <th style="width: 30px">Açıklama</th>
-                    <td>{!! $data->description !!}</td>
-                </tr>
-                <tr>
-                    <th style="width: 30px">Fotoğraf</th>
-                    <td>@if($data->image)
-                    <img src="{{Storage::url($data->image)}}" style=" border-radius:2px ; height:100px ;width: 150px">
-                        @endif</td>
-                </tr>
-                <tr>
-                    <th style="width: 30px">Durum</th>
-                    <td>{{$data->status}}</td>
                 </tr>
                 <tr>
                     <th style="width: 30px">Oluşturulma Tarihi</th>

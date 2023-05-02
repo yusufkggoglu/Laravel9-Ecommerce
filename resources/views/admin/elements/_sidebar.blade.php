@@ -21,11 +21,35 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+            <li class="nav-item">
+                <a href="/admin" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Anasayfa</p>
+                </a>
+              </li>
+          </li>
           <li class="nav-item">
             <li class="nav-item">
                 <a href="/admin/category" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kategori</p>
+                </a>
+              </li>
+          </li>
+          <li class="nav-item">
+            <li class="nav-item">
+                <a href="/admin/product" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ürün</p>
+                </a>
+              </li>
+          </li>
+          <li class="nav-item">
+            <li class="nav-item">
+                <a href="/admin/size" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Beden</p>
                 </a>
               </li>
           </li>
