@@ -28,6 +28,7 @@
             <td><a href="/admin/product/edit/{{$data->id}}" class="btn btn-primary btn-rounded btn-fw">Güncelle</a></td>
             <td><a href="/admin/product/delete/{{$data->id}}" class="btn btn-danger btn-rounded btn-fw">Sil</a></td>
             <td><a href="/admin/stock/{{$data->id}}" class="btn btn-info btn-rounded btn-fw">Stok</a></td>
+            <td><a href="/admin/image/{{$data->id}}" class="btn btn-success btn-rounded btn-fw">Fotoğraf</a></td>
         </div>
         <div class="table-responsive pt-3">
             <table class="table table-bordered">

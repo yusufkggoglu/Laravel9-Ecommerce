@@ -2,21 +2,13 @@
 
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminHomeController;
+use App\Http\Controllers\Admin\AdminImageController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminSizeController;
 use App\Http\Controllers\Admin\AdminStockController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 Route::prefix('admin')->name('admin_')->group(function () {
     Route::get('/', [AdminHomeController::class, 'index'])->name('adminhome');
 
@@ -57,6 +49,12 @@ Route::prefix('admin')->name('admin_')->group(function () {
         Route::post('/store/{id}', 'store')->name('store');
         Route::get('/edit/{pid}/{id}', 'edit')->name('edit');
         Route::post('/update/{pid}/{id}', 'update')->name('update');
+        Route::get('/delete/{pid}/{id}', 'destroy')->name('delete');
+    });
+     //****************ADMİN STOCK ROUTES*****************************
+     Route::prefix('image')->name('image_')->controller(AdminImageController::class)->group(function () {
+        Route::get('/{pid}', 'index')->name('home');
+        Route::post('/store/{pid}', 'store')->name('store');
         Route::get('/delete/{pid}/{id}', 'destroy')->name('delete');
     });
 });
