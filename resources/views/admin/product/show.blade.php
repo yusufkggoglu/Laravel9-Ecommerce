@@ -70,8 +70,9 @@
                 </tr>
                 <tr>
                     <th style="width: 30px">Fotoğraf</th>
-                    <td>@if($data->image)
-                    <img src="{{Storage::url($data->image)}}" style=" border-radius:2px ; height:100px ;width: 150px">
+                    <td>
+                        @if($data->image)
+                            <img src="{{Storage::url($data->image)}}" style=" border-radius:2px ; height:100px ;width: 150px">
                         @endif</td>
                 </tr>
                 <tr>

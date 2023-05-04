@@ -4,14 +4,18 @@ use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\AdminImageController;
 use App\Http\Controllers\Admin\AdminProductController;
+use App\Http\Controllers\Admin\AdminSettingController;
 use App\Http\Controllers\Admin\AdminSizeController;
 use App\Http\Controllers\Admin\AdminStockController;
 use Illuminate\Support\Facades\Route;
 
 
+//****************ADMİN PANEL ROUTES START*****************************
 Route::prefix('admin')->name('admin_')->group(function () {
     Route::get('/', [AdminHomeController::class, 'index'])->name('adminhome');
-
+    //****************ADMİN SETTING ROUTES*****************************
+    Route::get('/setting', [AdminSettingController::class, 'index'])->name('setting');
+    Route::post('/setting/update', [AdminSettingController::class, 'update'])->name('setting_update');
     //****************ADMİN CATEGORY ROUTES*****************************
     Route::prefix('category')->name('category_')->controller(AdminCategoryController::class)->group(function () {
         Route::get('/', 'index')->name('home');
@@ -58,6 +62,7 @@ Route::prefix('admin')->name('admin_')->group(function () {
         Route::get('/delete/{pid}/{id}', 'destroy')->name('delete');
     });
 });
+//****************ADMİN PANEL ROUTES END*****************************
 
 Route::middleware([
     'auth:sanctum',

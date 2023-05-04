@@ -64,7 +64,9 @@
                           {{$rs->price}}
                       </td>
                       <td>
+                        @if($rs->image)
                            <img src="{{Storage::url($rs->image)}}" style=" height:100px ;width: 150px">
+                        @endif
                       </td>
                       <td>
                           {{$rs->status}}

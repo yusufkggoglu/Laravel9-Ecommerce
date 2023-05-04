@@ -53,6 +53,14 @@
                 </a>
               </li>
           </li>
+          <li class="nav-item">
+            <li class="nav-item">
+                <a href="/admin/setting" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ayarlar</p>
+                </a>
+              </li>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
