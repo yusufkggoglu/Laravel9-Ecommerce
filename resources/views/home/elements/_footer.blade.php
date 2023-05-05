@@ -8,44 +8,42 @@
                             <a href="#"><img src="{{asset('assets')}}/home/img/footer-logo.png" alt=""></a>
                         </div>
                         <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
-                            <li>Email: hello.colorlib@gmail.com</li>
+                            <li>Adres: {{$setting->address}}</li>
+                            <li>Telefon: {{$setting->phone}}</li>
+                            <li>Email: {{$setting->email}}</li>
                         </ul>
                         <div class="footer-social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                            <a href="{{$setting->facebook}}"><i class="fa fa-facebook"></i></a>
+                            <a href="{{$setting->instagram}}"><i class="fa fa-instagram"></i></a>
+                            <a href="{{$setting->twitter}}"><i class="fa fa-twitter"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2 offset-lg-1">
                     <div class="footer-widget">
-                        <h5>Information</h5>
+                        <h5>Kategoriler</h5>
                         <ul>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Checkout</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Serivius</a></li>
+                            @foreach($categories as $rs)
+                                <li><a href="#">{{$rs->title}}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="footer-widget">
-                        <h5>My Account</h5>
+                        <h5>Hesabım</h5>
                         <ul>
-                            <li><a href="#">My Account</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Shopping Cart</a></li>
-                            <li><a href="#">Shop</a></li>
+                            <li><a href="#">Giriş Yap</a></li>
+                            <li><a href="#">Üye Ol</a></li>
+                            <li><a href="#">İletişim</a></li>
+                            <li><a href="#">Alışveriş</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="newslatter-item">
-                        <h5>Join Our Newsletter Now</h5>
-                        <p>Get E-mail updates about our latest shop and special offers.</p>
+                        <h5>Şimdi Abone Olun</h5>
+                        <p>En son mağazamız ve özel tekliflerimiz hakkında e-posta güncellemelerini alın.</p>
                         <form action="#" class="subscribe-form">
                             <input type="text" placeholder="Enter Your Mail">
                             <button type="button">Subscribe</button>
