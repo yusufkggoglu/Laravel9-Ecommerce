@@ -41,6 +41,14 @@
                     <td>{{$data->title}}</td>
                 </tr>
                 <tr>
+                    <th style="width:30px">Koleksiyon</th>
+                    <td>{{$data->collection->title}}</td>
+                </tr>
+                <tr>
+                    <th style="width:30px">Kategori</th>
+                    <td>{{$data->category->title}}</td>
+                </tr>
+                <tr>
                     <th style="width:30px">Fiyat</th>
                     <td>{{$data->price}}</td>
                 </tr>

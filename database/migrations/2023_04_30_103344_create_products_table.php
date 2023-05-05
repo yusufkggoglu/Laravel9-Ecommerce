@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id');
+            $table->foreignId('collection_id');
             $table->string('title');
             $table->decimal('price');
+            $table->string('brand')->nullable();
             $table->string('color')->nullable();
             $table->string('color_hex_code')->nullable();
             $table->string('product_code');

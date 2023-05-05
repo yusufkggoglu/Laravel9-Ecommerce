@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Category;
+use App\Models\Collection;
 use App\Models\Size;
 use App\Models\Stock;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,6 +21,12 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function collection()
+    {
+        return $this->belongsTo(Collection::class);
+    }
+
 
     public function stocks()
     {

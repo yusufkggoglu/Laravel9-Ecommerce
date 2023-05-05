@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminCollectionController;
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\AdminImageController;
 use App\Http\Controllers\Admin\AdminProductController;
@@ -21,7 +22,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Route::view('/registeruser', 'home.register')->name('registeruser');
 Route::view('/loginadmin', 'admin.login')->name('loginadmin');
 Route::get('/logoutuser', [HomeController::class, 'logout'])->name('logoutuser');
-Route::post('/loginadmincheck', [HomeController:: class, 'loginadmincheck'])->name('loginadmincheck');
+Route::post('/loginadmincheck', [HomeController::class, 'loginadmincheck'])->name('loginadmincheck');
 
 Route::middleware('auth')->group(function () {
     //****************ADMİN PANEL ROUTES START*****************************
@@ -32,6 +33,16 @@ Route::middleware('auth')->group(function () {
         Route::post('/setting/update', [AdminSettingController::class, 'update'])->name('setting_update');
         //****************ADMİN CATEGORY ROUTES*****************************
         Route::prefix('category')->name('category_')->controller(AdminCategoryController::class)->group(function () {
+            Route::get('/', 'index')->name('home');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update/{id}', 'update')->name('update');
+            Route::get('/delete/{id}', 'destroy')->name('delete');
+            Route::get('/show/{id}', 'show')->name('show');
+        });
+        //****************ADMİN CATEGORY ROUTES*****************************
+        Route::prefix('collection')->name('collection_')->controller(AdminCollectionController::class)->group(function () {
             Route::get('/', 'index')->name('home');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');

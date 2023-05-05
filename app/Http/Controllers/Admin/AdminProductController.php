@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Collection;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -28,8 +29,13 @@ class AdminProductController extends Controller
      */
     public function create()
     {
+        $collections=Collection::all();
         $categories=Category::all();
-        return view('admin.product.create',['categories'=>$categories]);
+        return view('admin.product.create',[
+            'categories'=>$categories,
+            'collections'=>$collections,
+
+        ]);
     }
 
     /**
@@ -43,6 +49,8 @@ class AdminProductController extends Controller
         $data = new Product();
         $data->category_id =$request->category_id;
         $data->title = $request->title;
+        $data->collection_id = $request->collection_id;
+        $data->brand = $request->brand;
         $data->keywords = $request->keywords;
         $data->description = $request->description;
         $data->color = $request->color;
@@ -80,9 +88,11 @@ class AdminProductController extends Controller
     {
         $data = Product::find($id);
         $categories = Category::all();
+        $collections = Collection::all();
         return view('admin.product.edit', [
             'data' => $data,
-            'categories' => $categories
+            'categories' => $categories,
+            'collections' => $collections
         ]);
     }
 
@@ -98,6 +108,8 @@ class AdminProductController extends Controller
         $data = Product::find($id);
         $data->category_id =$request->category_id;
         $data->title = $request->title;
+        $data->collection_id = $request->collection_id;
+        $data->brand = $request->brand;
         $data->color = $request->color;
         $data->color_hex_code = $request->color_hex_code;
         $data->product_code = $request->product_code;

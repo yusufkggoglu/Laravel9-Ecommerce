@@ -115,7 +115,7 @@
                 <div class="nav-depart">
                     <div class="depart-btn">
                         <i class="ti-menu"></i>
-                        <span>All departments</span>
+                        <span>Kategoriler</span>
                         <ul class="depart-hover">
                             <li class="active"><a href="#">Women’s Clothing</a></li>
                             <li><a href="#">Men’s Clothing</a></li>
@@ -130,7 +130,7 @@
                 </div>
                 <nav class="nav-menu mobile-menu">
                     <ul>
-                        <li class="active"><a href="./index.html">Home</a></li>
+                        <li class="active"><a href="./index.html">Anasayfa</a></li>
                         <li><a href="./shop.html">Shop</a></li>
                         <li><a href="#">Collection</a>
                             <ul class="dropdown">
