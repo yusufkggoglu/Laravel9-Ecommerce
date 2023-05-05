@@ -11,6 +11,11 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 
+
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+
 //**********************LOGİN LOGOUT PANEL ROUTES****************************
 // Route::view('/loginuser', 'home.login')->name('loginuser');
 // Route::view('/registeruser', 'home.register')->name('registeruser');

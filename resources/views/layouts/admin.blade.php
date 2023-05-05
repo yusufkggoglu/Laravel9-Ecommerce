@@ -6,7 +6,7 @@
         <title>@yield('title')</title>
         <meta name="description" content="@yield('description')">
         <meta name="keywords" content="@yield('keywords')">
-        <meta name="author" content="Yusuf K.">
+        <meta name="author" content="Yusuf Küçükgökgözoğlu">
         <link rel="icon" type="image/x-icon" href="@yield('icon')">
         <meta name="msapplication-tap-highlight" content="yes"/>
 
