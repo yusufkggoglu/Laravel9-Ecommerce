@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,6 +12,16 @@ class HomeController extends Controller
     {
         return view('home.index');
     }
+
+    public function shop()
+    {
+        $product=Product::with('category')->simplePaginate(12);
+        return view('home.shop',[
+            'product'=>$product,
+
+        ]);
+    }
+
     public function loginadmincheck(Request $request)
     {
         $credentials = $request->validate([
