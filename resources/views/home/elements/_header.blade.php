@@ -115,19 +115,19 @@
                     <span>Kategoriler</span>
                     <ul class="depart-hover">
                         @foreach($categories as $rs)
-                            <li><a href="#">{{$rs->title}}</a></li>
+                            <li><a href="/shop/category/{{$rs->id}}">{{$rs->title}}</a></li>
                         @endforeach 
                     </ul>
                 </div>
             </div>
             <nav class="nav-menu mobile-menu">
                 <ul>
-                    <li class="active"><a href="./index.html">Anasayfa</a></li>
+                    <li class="active"><a href="/">Anasayfa</a></li>
                     <li><a href="/shop">Alışveriş</a></li>
                     <li><a href="">Koleksiyon</a>
                         <ul class="dropdown">
                             @foreach($collections as $rs)
-                                <li><a href="#">{{$rs->title}}</a></li>
+                                <li><a href="/shop/collection/{{$rs->id}}">{{$rs->title}}</a></li>
                             @endforeach
                         </ul>
                     </li>

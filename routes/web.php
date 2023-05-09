@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
-
+Route::get('/shop/collection/{id}', [HomeController::class, 'collectionfilter'])->name('collectionfilter');
+Route::get('/shop/category/{id}', [HomeController::class, 'categoryfilter'])->name('categoryfilter');
 
 
 //**********************LOGİN LOGOUT PANEL ROUTES****************************
