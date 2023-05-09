@@ -68,21 +68,21 @@
         </div>
         <div class="form-group">
           <label>Renk</label>
-          <input type="text" class="form-control" name="color" value="{{$data->color}}>
-                  </div>
-                  <div class="form-group">
+          <input type="text" class="form-control" name="color" value="{{$data->color}}">
+        </div>
+        <div class="form-group">
           <label>Renk Hexadecimal Kodu</label>
-          <input type="text" class="form-control" name="color_hex_code" value="{{$data->color_hex_code}}>
-                  </div>
-                  <div class="form-group">
+          <input type="text" class="form-control" name="color_hex_code" value="{{$data->color_hex_code}}">
+        </div>
+        <div class="form-group">
           <label>Marka</label>
-          <input type="text" class="form-control" name="brand" value="{{$data->brand}}>
-                  </div>
-                  <div class=" form-group">
+          <input type="text" class="form-control" name="brand" value="{{$data->brand}}">
+        </div>
+        <div class=" form-group">
           <label>Ürün Kodu</label>
-          <input type="text" class="form-control" name="product_code" value="{{$data->product_code}}>
-                  </div>
-                  <div class=" form-group">
+          <input type="text" class="form-control" name="product_code" value="{{$data->product_code}}">
+        </div>
+        <div class=" form-group">
           <label>Fotoğraf</label>
           <input type="file" name="image" class="custom-upload-default">
         </div>

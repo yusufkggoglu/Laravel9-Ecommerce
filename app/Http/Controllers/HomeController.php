@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use App\Models\Product;
 use App\Models\Size;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,17 +17,26 @@ class HomeController extends Controller
         return view('home.index');
     }
 
-    // public function shop(Request $request)
-    // {
-
-    //     $product=Product::with('category')->simplePaginate(12);
-    //     return view('home.shop',[
-    //         'product'=>$product,
-    //     ]);
-    // }
+    public function product(Request $request,$id)
+    {
+        $stock=Stock::where('product_id',$id)->where('stock','>',0)->get();
+        $data=Product::find($id);
+        $code=$data->product_code;
+        $sameproducts=Product::where('product_code',$code)->get();
+        $firstimage=Image::where('product_id',$id)->first();
+        $images=Image::where('product_id',$id)->get();
+        $product=Product::with('category')->simplePaginate(12);
+        return view('home.product',[
+            'product'=>$product,
+            'data'=>$data,
+            'images'=>$images,
+            'firstimage'=>$firstimage,
+            'stock'=>$stock,
+            'sameproducts'=>$sameproducts,
+        ]);
+    }
     public function shop(Request $request)
     {
-        // dd($request);
         $color = $request->color ?? null;
         $category_id = $request->category_id ?? null;
         $collection_id = $request->collection_id ?? null;

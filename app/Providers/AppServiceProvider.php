@@ -36,8 +36,6 @@ class AppServiceProvider extends ServiceProvider
             $view->with('categories',  $categories);
             $collections = Collection::all();
             $view->with('collections',  $collections);
-            $sizes = Size::all();
-            $view->with('sizes',  $sizes);
         });
     }
 }

@@ -8,11 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Stock extends Model
 {
     use HasFactory;
-    # many to one
-    public function sizes()
-    {
-        return $this->belongsTo(Size::class);
-    }
+
     # many to one
     public function products()
     {

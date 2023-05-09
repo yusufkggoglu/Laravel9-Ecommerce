@@ -18,13 +18,13 @@ class AdminStockController extends Controller
      */
     public function index($id)
     {
-        $size=Size::all();
+        // $size=Size::all();
         $product=Product::find($id);
         $stock=DB::table('stocks')->where('product_id',$id)->get();
         return view('admin.stock.index',[
          'stock'=>$stock,
         'product'=>$product,
-        'size'=>$size,
+        // 'size'=>$size,
         ]);
     }
     
@@ -36,9 +36,9 @@ class AdminStockController extends Controller
     public function create($id)
     {
         $product=Product::find($id);
-        $size=Size::all();
+        // $size=Size::all();
         return view('admin.stock.create',[
-            'size' => $size,
+            // 'size' => $size,
             'product'=>$product
         ]);
     }
@@ -54,7 +54,7 @@ class AdminStockController extends Controller
     {
         $data = new Stock();
         $data->product_id =$request->product_id;
-        $data->size_id = $request->size_id;
+        $data->kind = $request->kind;
         $data->stock = $request->stock;
         $data->save();
         return redirect()->route('admin_stock_home', ['id' => $id]);
@@ -81,9 +81,9 @@ class AdminStockController extends Controller
     {
         $stock=Stock::find($id);
         $product=Product::find($pid);
-        $size=Size::all();
+        // $size=Size::all();
         return view('admin.stock.edit',[
-            'size' => $size,
+            // 'size' => $size,
             'stock'=>$stock,
             'product'=>$product
         ]);
@@ -100,7 +100,7 @@ class AdminStockController extends Controller
     {
         $data = Stock::find($pid);
         $data->product_id =$request->product_id;
-        $data->size_id = $request->size_id;
+        $data->kind = $request->kind;
         $data->stock = $request->stock;
         $data->save();
         return redirect()->route('admin_stock_home', ['id' => $id]);

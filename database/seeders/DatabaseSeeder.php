@@ -27,5 +27,8 @@ class DatabaseSeeder extends Seeder
             'role_id' =>1,
             'user_id' =>1,
         ]);
+        DB::table('settings')->insert([
+            'title' =>'Website',
+        ]);
     }
 }

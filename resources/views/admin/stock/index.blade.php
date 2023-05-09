@@ -37,7 +37,7 @@
                           Ürün
                       </th>
                       <th>
-                          Beden
+                          Çeşit
                       </th>
                       <th>
                           Stok
@@ -54,11 +54,7 @@
                           {{$product->title}}
                       </td> 
                       <td>
-                          @foreach($size as $temp)
-                            @if($temp->id == $rs->size_id && $rs->size_id != null)
-                              {{$temp->title}}
-                            @endif
-                          @endforeach
+                        {{$rs->kind}}
                       </td>
                       <td>
                           {{$rs->stock}}

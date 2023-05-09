@@ -34,12 +34,8 @@
                 <div class="card-body">
                   <input type="hidden" name="product_id" value="{{$stock->product_id}}">
                   <div class="form-group">
-                        <label>Beden</label>
-                        <select class="form-control select2 select2-hidden-accessible" name="size_id" style="width: 100%;" >
-                            @foreach($size as $rs)
-                                <option value="{{$rs->id}}" @if($rs->id == $stock->size_id) selected="selected" @endif>{{$rs->title}}</option>
-                            @endforeach
-                        </select>
+                        <label>Stok Çeşit</label>
+                        <input type="text" class="form-control" name="kind" placeholder="...">
                     </div>
                     <div class="form-group">
                       <label>Stok</label>

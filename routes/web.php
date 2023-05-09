@@ -18,7 +18,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
 Route::get('/shop/collection/{id}', [HomeController::class, 'collectionfilter'])->name('collectionfilter');
 Route::get('/shop/category/{id}', [HomeController::class, 'categoryfilter'])->name('categoryfilter');
-
+Route::get('/product/{id}', [HomeController::class, 'product'])->name('product');
 
 //**********************LOGİN LOGOUT PANEL ROUTES****************************
 // Route::view('/loginuser', 'home.login')->name('loginuser');
