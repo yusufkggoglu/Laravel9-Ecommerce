@@ -66,13 +66,7 @@
                             </div>
                             <div class="form-group">
                                 <label>İcon</label>
-                                <input type="file" name="icon" class="file-upload-default">
-                                <div class="input-group col-xs-12">
-                                    <input type="text"  class="form-control file-upload-info" disabled placeholder="Choose Image File">
-                                    <div class="custom-file">
-                                        <input type="file" name="icon" class="custom-file-input">
-                                    </div>
-                                </div>
+                                <input type="file" name="icon" class="custom-upload-default">
                             </div>
                         </div>
                         <div class="tab-pane fade" id="social" role="tabpanel" aria-labelledby="social-tab">

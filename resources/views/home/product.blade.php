@@ -1,8 +1,8 @@
 @extends('layouts.home')
 
-@section('title',$setting->title)
-@section('description',$setting->description)
-@section('keywords',$setting->keywords)
+@section('title',$data->title)
+@section('description',$data->description)
+@section('keywords',$data->keywords)
 @section('icon',Storage::url($setting->icon))
 
 @section('content')

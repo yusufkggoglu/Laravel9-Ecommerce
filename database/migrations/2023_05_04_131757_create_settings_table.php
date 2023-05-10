@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('company',150)->nullable();
             $table->string('address',150)->nullable();
-            $table->string('googlemaps',300)->nullable();
+            $table->text('googlemaps')->nullable();
             $table->string('phone',20)->nullable();
             $table->string('email',75)->nullable();
             $table->string('facebook',100)->nullable();

@@ -55,9 +55,9 @@
           </li>
           <li class="nav-item">
             <li class="nav-item">
-                <a href="/admin/size" class="nav-link">
+                <a href="/admin/faq" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Beden</p>
+                  <p>Sıkça Sorulan Sorular</p>
                 </a>
               </li>
           </li>

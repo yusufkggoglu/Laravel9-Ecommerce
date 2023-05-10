@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminCollectionController;
+use App\Http\Controllers\Admin\AdminFaqController;
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\AdminImageController;
+use App\Http\Controllers\Admin\AdminMessageController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminSettingController;
 use App\Http\Controllers\Admin\AdminSizeController;
@@ -19,6 +21,9 @@ Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
 Route::get('/shop/collection/{id}', [HomeController::class, 'collectionfilter'])->name('collectionfilter');
 Route::get('/shop/category/{id}', [HomeController::class, 'categoryfilter'])->name('categoryfilter');
 Route::get('/product/{id}', [HomeController::class, 'product'])->name('product');
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::post('/storemessage', [HomeController::class, 'storemessage'])->name('storemessage');
+Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
 
 //**********************LOGİN LOGOUT PANEL ROUTES****************************
 // Route::view('/loginuser', 'home.login')->name('loginuser');
@@ -65,7 +70,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/show/{id}', 'show')->name('show');
         });
         //****************ADMİN SIZE ROUTES*****************************
-        Route::prefix('size')->name('size_')->controller(AdminSizeController::class)->group(function () {
+        Route::prefix('faq')->name('faq_')->controller(AdminFaqController::class)->group(function () {
             Route::get('/', 'index')->name('home');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
@@ -83,11 +88,17 @@ Route::middleware('auth')->group(function () {
             Route::post('/update/{pid}/{id}', 'update')->name('update');
             Route::get('/delete/{pid}/{id}', 'destroy')->name('delete');
         });
-        //****************ADMİN STOCK ROUTES*****************************
+        //****************ADMİN PRODUCT IMAGE ROUTES*****************************
         Route::prefix('image')->name('image_')->controller(AdminImageController::class)->group(function () {
             Route::get('/{pid}', 'index')->name('home');
             Route::post('/store/{pid}', 'store')->name('store');
             Route::get('/delete/{pid}/{id}', 'destroy')->name('delete');
+        });
+        //****************ADMİN MESSAGE ROUTES*****************************
+        Route::prefix('message')->name('message_')->controller(AdminMessageController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/delete/{id}', 'destroy')->name('delete');
+            Route::get('/show/{id}', 'show')->name('show');
         });
     });
 });

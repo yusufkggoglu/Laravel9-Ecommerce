@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faq;
 use App\Models\Image;
+use App\Models\Message;
 use App\Models\Product;
 use App\Models\Size;
 use App\Models\Stock;
@@ -64,7 +66,7 @@ class HomeController extends Controller
                     $query->whereBetween('price', [$min, $max]);
                 }
                 return $query;
-            })->SimplePaginate(9);
+            })->SimplePaginate(1);
 
         return view('home.shop', [
             'product' => $product,
@@ -91,6 +93,37 @@ class HomeController extends Controller
             'product' => $product,
             'categoryid' => $id,
         ]);
+    }
+
+    public function contact()
+    {
+        return view('home.contact');
+    }
+    public function faq()
+    {
+        $faq=Faq::where('status','True')->get();
+        return view('home.faq',[
+            'faq' => $faq,
+        ]);
+    }
+    public function storemessage(Request $request)
+    {        
+        //dd($request);
+        $request->validate([
+            'name' => 'required|max:50',
+            'email' => 'required|max:50|email',
+            'phone' => 'required|max:20',
+            'message' => 'required|max:500',
+        ]);
+        $data = new Message();
+        $data->name = $request->input('name');
+        $data->email = $request->input('email');
+        $data->phone = $request->input('phone');
+        $data->message = $request->input('message');
+        $data->ip = $request->ip();
+        $data->save();
+
+        return redirect()->to('/contact#contact')->with('success', 'Mesajınız gönderildi , Teşekkürler.');
     }
 
     public function loginadmincheck(Request $request)
