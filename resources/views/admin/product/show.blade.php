@@ -37,6 +37,10 @@
                     <td>{{$data->id}}</td>
                 </tr>
                 <tr>
+                    <th style="width: 30px">Ürün</th>
+                    <td><a href="/product/{{$data->id}}">LİNK</a></td>
+                </tr>
+                <tr>
                     <th style="width:30px">Başlık</th>
                     <td>{{$data->title}}</td>
                 </tr>

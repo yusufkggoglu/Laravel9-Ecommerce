@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminMessageController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminSettingController;
 use App\Http\Controllers\Admin\AdminSizeController;
+use App\Http\Controllers\Admin\AdminSliderController;
 use App\Http\Controllers\Admin\AdminStockController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -26,10 +27,11 @@ Route::post('/storemessage', [HomeController::class, 'storemessage'])->name('sto
 Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
 
 //**********************LOGİN LOGOUT PANEL ROUTES****************************
-// Route::view('/loginuser', 'home.login')->name('loginuser');
+Route::view('/loginuser', 'home.login')->name('loginuser');
 // Route::view('/registeruser', 'home.register')->name('registeruser');
 Route::view('/loginadmin', 'admin.login')->name('loginadmin');
 Route::get('/logoutuser', [HomeController::class, 'logout'])->name('logoutuser');
+Route::post('/loginusercheck', [HomeController::class, 'loginusercheck'])->name('loginusercheck');
 Route::post('/loginadmincheck', [HomeController::class, 'loginadmincheck'])->name('loginadmincheck');
 
 Route::middleware('auth')->group(function () {
@@ -69,7 +71,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/delete/{id}', 'destroy')->name('delete');
             Route::get('/show/{id}', 'show')->name('show');
         });
-        //****************ADMİN SIZE ROUTES*****************************
+        //****************ADMİN FAQ ROUTES*****************************
         Route::prefix('faq')->name('faq_')->controller(AdminFaqController::class)->group(function () {
             Route::get('/', 'index')->name('home');
             Route::get('/create', 'create')->name('create');
@@ -97,6 +99,16 @@ Route::middleware('auth')->group(function () {
         //****************ADMİN MESSAGE ROUTES*****************************
         Route::prefix('message')->name('message_')->controller(AdminMessageController::class)->group(function () {
             Route::get('/', 'index')->name('index');
+            Route::get('/delete/{id}', 'destroy')->name('delete');
+            Route::get('/show/{id}', 'show')->name('show');
+        });
+        //****************ADMİN SLIDER ROUTES*****************************
+        Route::prefix('slider')->name('slider_')->controller(AdminSliderController::class)->group(function () {
+            Route::get('/', 'index')->name('home');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/update/{id}', 'update')->name('update');
             Route::get('/delete/{id}', 'destroy')->name('delete');
             Route::get('/show/{id}', 'show')->name('show');
         });

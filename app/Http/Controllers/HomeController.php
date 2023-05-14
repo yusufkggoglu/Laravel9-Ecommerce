@@ -7,18 +7,29 @@ use App\Models\Image;
 use App\Models\Message;
 use App\Models\Product;
 use App\Models\Size;
+use App\Models\Slider;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('home.index');
+        $sliders = Slider::all();
+        return view('home.index',[
+            'sliders' => $sliders
+        ]);
     }
-
+    protected $appends=[
+        'getProducts'
+    ];
+    public static function getProducts($c){
+        $product=Product::where('collection_id',$c)->with('category')->limit(8)->orderBy('id', 'desc')->get();
+        return $product;
+    }
     public function product(Request $request, $id)
     {
         $stock = Stock::where('product_id', $id)
@@ -50,23 +61,27 @@ class HomeController extends Controller
         $collection_id = $request->collection_id ?? null;
         $min = $request->min ?? null;
         $max = $request->max ?? null;
+        $sort = $request->sort ?? 'asc';
 
         $product = Product::where('status', 'True')
-            ->where(function ($query) use ($color, $category_id, $collection_id, $min, $max) {
+            ->where(function ($query) use ($color, $category_id, $collection_id, $min, $max,$sort) {
                 if (!empty($color)) {
                     $query->where('color', $color);
                 }
                 if (!empty($category_id)) {
                     $query->where('category_id', $category_id);
                 }
-                if (!empty($collection_id)) {
-                    $query->where('collection_id', $collection_id);
-                }
                 if (!empty($max)) {
                     $query->whereBetween('price', [$min, $max]);
                 }
+                if (!empty($collection_id)) {
+                    $query->where('collection_id', $collection_id);
+                }
+                if (!empty($price) && $price='desc') {
+                    $query->orderBy('price','desc');
+                }
                 return $query;
-            })->SimplePaginate(1);
+            })->orderBy('price',$sort)->SimplePaginate(10);
 
         return view('home.shop', [
             'product' => $product,
@@ -140,6 +155,23 @@ class HomeController extends Controller
         }
         return back()->withErrors([
             'error' => 'Erişim izniniz bulunmamaktadır.',
+        ])->onlyInput('email');
+    }
+    public function loginusercheck(Request $request): RedirectResponse
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+ 
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+ 
+            return redirect()->intended('/');
+        }
+ 
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
     }
 

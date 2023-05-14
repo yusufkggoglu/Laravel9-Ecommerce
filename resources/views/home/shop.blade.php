@@ -100,8 +100,8 @@
                                 <label class="cs-green" for="cs-green">Yeşil</label>
                             </div>
                         </div>
-                        <button type="submit" class="filter-btn">Ara</button>
-                        </form>
+                        <button type="submit" class="filter-btn">Filtrele</button>
+                        
                     </div>
                     <!-- <div class="filter-widget">
                         <h4 class="fw-title">Beden</h4>
@@ -132,9 +132,9 @@
                 <div class="row">
                     <div class="col-lg-7 col-md-7">
                         <div class="select-option">
-                            <select class="sorting">
-                                <option value="">Artan Fiyat</option>
-                                <option value="">Azalan Fiyat</option>
+                            <select name="sort" class="sorting">
+                                <option value="asc">Artan Fiyat</option>
+                                <option value="desc">Azalan Fiyat</option>
                             </select>
                         </div>
                     </div>
@@ -143,6 +143,7 @@
                     </div>
                 </div>
             </div>
+            </form>
             <div class="product-list">
                 <div class="row">
                     @foreach($product as $rs)

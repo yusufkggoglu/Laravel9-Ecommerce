@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Size;
+use App\Models\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class AdminSizeController extends Controller
+class AdminSliderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,8 @@ class AdminSizeController extends Controller
      */
     public function index()
     {
-        $sizes = Size::all();
-        return view('admin.size.index',['sizes'=>$sizes]);
+        $sliders = Slider::all();
+        return view('admin.slider.index',['sliders' => $sliders,]);
     }
 
     /**
@@ -26,7 +27,7 @@ class AdminSizeController extends Controller
      */
     public function create()
     {
-        return view('admin.size.create');
+        return view('admin.slider.create');
     }
 
     /**
@@ -37,10 +38,15 @@ class AdminSizeController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new Size();
+        $data = new Slider();
         $data->title = $request->title;
+        $data->description = $request->description;
+        $data->tag = $request->tag;
+        if ($request->file('image')){
+            $data->image=$request->file('image')->store('images');
+        }
         $data->save();
-        return redirect('admin/size');
+        return redirect('admin/slider');
     }
 
     /**
@@ -51,8 +57,8 @@ class AdminSizeController extends Controller
      */
     public function show($id)
     {
-        $data = Size::find($id);
-        return view('admin.size.show', ['data' => $data]);
+        $data = Slider::find($id);
+        return view('admin.slider.show', ['data' => $data]);
     }
 
     /**
@@ -63,9 +69,9 @@ class AdminSizeController extends Controller
      */
     public function edit($id)
     {
-        $data = Size::find($id);
-        return view('admin.size.edit', [
-            'data' => $data
+        $data = Slider::find($id);
+        return view('admin.slider.edit', [
+            'data' => $data,
         ]);
     }
 
@@ -78,10 +84,15 @@ class AdminSizeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Size::find($id);
+        $data = Slider::find($id);
         $data->title = $request->title;
+        $data->description = $request->description;
+        $data->tag = $request->tag;
+        if ($request->file('image')){
+            $data->image=$request->file('image')->store('images');
+        }
         $data->save();
-        return redirect('admin/size');
+        return redirect('admin/slider');
     }
 
     /**
@@ -92,8 +103,11 @@ class AdminSizeController extends Controller
      */
     public function destroy($id)
     {
-        $data=Size::find($id);
+        $data=Slider::find($id);
+        if($data->image && Storage::disk('public')->exists($data->image)){
+            Storage::delete("$data->image");
+        }
         $data->delete();
-        return redirect('admin/size');
+        return redirect('admin/slider');
     }
 }

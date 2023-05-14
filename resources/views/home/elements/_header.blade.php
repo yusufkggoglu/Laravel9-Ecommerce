@@ -13,7 +13,12 @@
                 </div>
             </div>
             <div class="ht-right">
-                <a href="#" class="login-panel"><i class="fa fa-user"></i>Giriş yap</a>
+                @guest()
+                <a href="/loginuser" class="login-panel"><i class="fa fa-user"></i>Giriş yap</a>
+                @endguest()
+                @auth()
+                <a class="login-panel"><i class="fa fa-user"></i>{{Auth::user()->name}}</a>
+                @endauth()
                 <div class="lan-selector">
                     <select class="language_drop" name="countries" id="countries" style="width:300px;">
                         <option value='yt' data-image="{{asset('assets')}}/home/img/flag-1.jpg" data-imagecss="flag yt" data-title="English">English</option>
@@ -124,15 +129,27 @@
                 <ul>
                     <li class="active"><a href="/">Anasayfa</a></li>
                     <li><a href="/shop">Alışveriş</a></li>
-                    <li><a href="">Koleksiyon</a>
+                    <li><a href="/contact">İletişim</a></li>
+                    <li><a href="/faq">FAQ</a></li>
+                    <!-- <li><a href="">Koleksiyon</a>
                         <ul class="dropdown">
                             @foreach($collections as $rs)
                                 <li><a href="/shop/collection/{{$rs->id}}">{{$rs->title}}</a></li>
                             @endforeach
                         </ul>
+                    </li> -->
+                    @guest()
+                    <li><a href="/loginuser">Giriş</a>
                     </li>
-                    <li><a href="/contact">İletişim</a></li>
-                    <li><a href="/faq">FAQ</a></li>
+                    @endguest()
+                    @auth()
+                    <li><a href="">Hesap</a>
+                        <ul class="dropdown">
+                            <li><a href="">{{Auth::user()->name}}</a></li>
+                            <li><a href="/logoutuser">Çıkış Yap</a></li>
+                        </ul>
+                    </li>
+                    @endauth()
                 </ul>
             </nav>
             <div id="mobile-menu-wrap"></div>

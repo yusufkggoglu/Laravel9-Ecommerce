@@ -40,8 +40,11 @@ class AdminCollectionController extends Controller
     {
         $data = new Collection();
         $data->title = $request->title;
-        if ($request->file('image')){
-            $data->image=$request->file('image')->store('images');
+        if ($request->file('yatayimage')){
+            $data->yatayimage=$request->file('yatayimage')->store('images');
+        }
+        if ($request->file('dikeyimage')){
+            $data->dikeyimage=$request->file('dikeyimage')->store('images');
         }
         $data->save();
         return redirect('admin/collection');
@@ -84,8 +87,11 @@ class AdminCollectionController extends Controller
     {
         $data = Collection::find($id);
         $data->title = $request->title;
-        if ($request->file('image')){
-            $data->image=$request->file('image')->store('images');
+        if ($request->file('yatayimage')){
+            $data->yatayimage=$request->file('yatayimage')->store('yatayimage');
+        }
+        if ($request->file('dikeyimage')){
+            $data->dikeyimage=$request->file('dikeyimage')->store('dikeyimage');
         }
         $data->save();
         return redirect('admin/collection');
