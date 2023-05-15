@@ -6,6 +6,7 @@ use App\Models\Faq;
 use App\Models\Image;
 use App\Models\Message;
 use App\Models\Product;
+use App\Models\ShopCart;
 use App\Models\Size;
 use App\Models\Slider;
 use App\Models\Stock;
@@ -22,6 +23,15 @@ class HomeController extends Controller
         return view('home.index',[
             'sliders' => $sliders
         ]);
+        
+    }
+    public function shopcart()
+    {
+        $shopcart = ShopCart::all();
+        return view('home.shopcart',[
+            'shopcart' => $shopcart
+        ]);
+        
     }
     protected $appends=[
         'getProducts'

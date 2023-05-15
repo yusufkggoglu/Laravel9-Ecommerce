@@ -21,22 +21,31 @@
                 </div>
                 <div class="col-lg-2 offset-lg-1">
                     <div class="footer-widget">
-                        <h5>Kategoriler</h5>
+                        <h5>Sayfalar</h5>
                         <ul>
-                            @foreach($categories as $rs)
+                            <!-- @foreach($categories as $rs)
                                 <li><a href="#">{{$rs->title}}</a></li>
-                            @endforeach
+                            @endforeach -->
+                            <li><a href="/contact">İletişim</a></li>
+                            <li><a href="/shop">Alışveriş</a></li>
+                            <li><a href="/faq">SSS</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="footer-widget">
-                        <h5>Hesabım</h5>
+                        <h5>Hesap</h5>
                         <ul>
-                            <li><a href="#">Giriş Yap</a></li>
-                            <li><a href="#">Üye Ol</a></li>
-                            <li><a href="#">İletişim</a></li>
-                            <li><a href="#">Alışveriş</a></li>
+                            @auth()
+                            <li><a href="/">Sepet</a></li>
+                            <li><a href="/">Siparişlerim</a></li>
+                            <li><a href="/">Beğendiklerim</a></li>
+                            <li><a href="/">Ayarlar</a></li>
+                            @endauth()
+                            @guest()
+                            <li><a href="/loginuser">Giriş</a></li>
+                            <li><a href="/registeruser">Kayıt Ol</a></li>
+                            @endguest()
                         </ul>
                     </div>
                 </div>
@@ -45,8 +54,8 @@
                         <h5>Şimdi Abone Olun</h5>
                         <p>En son mağazamız ve özel tekliflerimiz hakkında e-posta güncellemelerini alın.</p>
                         <form action="#" class="subscribe-form">
-                            <input type="text" placeholder="Enter Your Mail">
-                            <button type="button">Subscribe</button>
+                            <input type="text" placeholder="E-mail adresinizi giriniz...">
+                            <button type="button">Abone Ol</button>
                         </form>
                     </div>
                 </div>
@@ -58,7 +67,7 @@
                     <div class="col-lg-12">
                         <div class="copyright-text">
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved |     <a href="www.taykyazilim.com" target="_blank">Tayk Yazılım</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </div>
                         <div class="payment-pic">

@@ -28,13 +28,16 @@ Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
 
 //**********************LOGİN LOGOUT PANEL ROUTES****************************
 Route::view('/loginuser', 'home.login')->name('loginuser');
-// Route::view('/registeruser', 'home.register')->name('registeruser');
+//Route::view('/registeruser', 'home.register')->name('registeruser');
 Route::view('/loginadmin', 'admin.login')->name('loginadmin');
 Route::get('/logoutuser', [HomeController::class, 'logout'])->name('logoutuser');
 Route::post('/loginusercheck', [HomeController::class, 'loginusercheck'])->name('loginusercheck');
 Route::post('/loginadmincheck', [HomeController::class, 'loginadmincheck'])->name('loginadmincheck');
 
 Route::middleware('auth')->group(function () {
+        //****************USER ROUTES START*****************************
+    Route::post('/shopcart', [HomeController::class, 'shopcart'])->name('shopcart');
+
     //****************ADMİN PANEL ROUTES START*****************************
     Route::middleware('admin')->prefix('admin')->name('admin_')->group(function () {
         Route::get('/', [AdminHomeController::class, 'index'])->name('adminhome');

@@ -55,6 +55,14 @@
           </li>
           <li class="nav-item">
             <li class="nav-item">
+                <a href="/admin/slider" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Slayt</p>
+                </a>
+              </li>
+          </li>
+          <li class="nav-item">
+            <li class="nav-item">
                 <a href="/admin/faq" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Sıkça Sorulan Sorular</p>
