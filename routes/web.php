@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AdminSizeController;
 use App\Http\Controllers\Admin\AdminSliderController;
 use App\Http\Controllers\Admin\AdminStockController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ShopCartController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -34,9 +35,14 @@ Route::get('/logoutuser', [HomeController::class, 'logout'])->name('logoutuser')
 Route::post('/loginusercheck', [HomeController::class, 'loginusercheck'])->name('loginusercheck');
 Route::post('/loginadmincheck', [HomeController::class, 'loginadmincheck'])->name('loginadmincheck');
 
+Route::post('/shopcart/add', [ShopCartController::class, 'add'])->name('shop_cart_add');
+Route::get('/shopcart', [ShopCartController::class, 'shopcart'])->name('shop_cart');
+Route::get('/shopcart/remove/{id}', [ShopCartController::class, 'remove'])->name('shop_cart_remove');
+Route::get('/shopcart/remove/', [ShopCartController::class, 'remove'])->name('shop_cart_remove');
+
 Route::middleware('auth')->group(function () {
         //****************USER ROUTES START*****************************
-    Route::post('/shopcart', [HomeController::class, 'shopcart'])->name('shopcart');
+
 
     //****************ADMİN PANEL ROUTES START*****************************
     Route::middleware('admin')->prefix('admin')->name('admin_')->group(function () {

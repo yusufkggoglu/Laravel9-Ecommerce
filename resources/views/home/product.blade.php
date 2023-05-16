@@ -67,31 +67,35 @@
                                 <h6>Renk</h6>
                                 <div class="pd-color-choose">
                                     @foreach($sameproducts as $rs)
-                                        <div class="cc-item">
-                                            <a href="/product/{{$rs->id}}">
-                                                <label for="cc-black" style="background-color:<?= $rs['color_hex_code']; ?>"></label>
-                                            </a>
-                                        </div>
+                                    <div class="cc-item">
+                                        <a href="/product/{{$rs->id}}">
+                                            <label for="cc-black" style="background-color:<?= $rs['color_hex_code']; ?>"></label>
+                                        </a>
+                                    </div>
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="filter-widget">
-                                <h4 class="fw-title">Beden</h4>
-                                <div class="fw-size-choose">
-                                @foreach($stock as $rs)
-                                    <div class="sc-item">
-                                        <input type="radio" id="s-size">
-                                        <label for="s-size">{{$rs->kind}}</label>
+                            <form action="{{route('shop_cart_add')}}" method="POST">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{$data->id}}">
+                                <div class="filter-widget">
+                                    <h4 class="fw-title">Beden</h4>
+                                    <div class="fw-size-choose">
+                                        @foreach($stock as $rs)
+                                        <div class="sc-item">
+                                            <input type="radio" name="kind" value="{{$rs->kind}}" id="s-size">
+                                            <label for="s-size">{{$rs->kind}}</label>
+                                        </div>
+                                        @endforeach
                                     </div>
-                                @endforeach
                                 </div>
-                            </div>
-                            <div class="quantity">
-                                <div class="pro-qty">
-                                    <input type="text" value="1">
+                                <div class="quantity">
+                                    <div class="pro-qty">
+                                        <input type="text" name="quantity" value="1">
+                                    </div>
+                                    <button type="submit" class="primary-btn pd-cart">Sepete Ekle</button>
                                 </div>
-                                <a href="#" class="primary-btn pd-cart">Sepete Ekle</a>
-                            </div>
+                            </form>
                             <ul class="pd-tags">
                                 <li><span>Kategori :</span> {{$data->category->title}}</li>
                             </ul>
@@ -274,30 +278,30 @@
         </div>
         <div class="row">
             @foreach($relationproduct as $rs)
-                <div class="col-lg-3 col-sm-6">
-                    <div class="product-item">
-                        <div class="pi-pic">
-                            <img src="{{Storage::url($rs->image)}}" alt="">
-                            <div class="icon">
-                                <i class="icon_heart_alt"></i>
-                            </div>
-                            <ul>
-                                <li class="w-icon active"><a href="/product/{{$rs->id}}"><i class="icon_bag_alt"></i></a></li>
-                                <li class="quick-view"><a href="/product/{{$rs->id}}">+ Görüntüle</a></li>
-                            </ul>
+            <div class="col-lg-3 col-sm-6">
+                <div class="product-item">
+                    <div class="pi-pic">
+                        <img src="{{Storage::url($rs->image)}}" alt="">
+                        <div class="icon">
+                            <i class="icon_heart_alt"></i>
                         </div>
-                        <div class="pi-text">
-                            <div class="catagory-name">{{$rs->category->title}}</div>
-                            <a href="#">
-                                <h5>{{$rs->title}}</h5>
-                            </a>
-                            <div class="product-price">
-                                {{$rs->price}} ₺
-                                <!-- <span>$35.00</span> -->
-                            </div>
+                        <ul>
+                            <li class="w-icon active"><a href="/product/{{$rs->id}}"><i class="icon_bag_alt"></i></a></li>
+                            <li class="quick-view"><a href="/product/{{$rs->id}}">+ Görüntüle</a></li>
+                        </ul>
+                    </div>
+                    <div class="pi-text">
+                        <div class="catagory-name">{{$rs->category->title}}</div>
+                        <a href="#">
+                            <h5>{{$rs->title}}</h5>
+                        </a>
+                        <div class="product-price">
+                            {{$rs->price}} ₺
+                            <!-- <span>$35.00</span> -->
                         </div>
                     </div>
                 </div>
+            </div>
             @endforeach
         </div>
     </div>

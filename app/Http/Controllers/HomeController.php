@@ -25,19 +25,11 @@ class HomeController extends Controller
         ]);
         
     }
-    public function shopcart()
-    {
-        $shopcart = ShopCart::all();
-        return view('home.shopcart',[
-            'shopcart' => $shopcart
-        ]);
-        
-    }
     protected $appends=[
-        'getProducts'
+        'getProducts',
     ];
-    public static function getProducts($c){
-        $product=Product::where('collection_id',$c)->with('category')->limit(8)->orderBy('id', 'desc')->get();
+    public static function getProducts($collection_id){
+        $product=Product::where('collection_id',$collection_id)->with('category')->limit(8)->orderBy('id', 'desc')->get();
         return $product;
     }
     public function product(Request $request, $id)

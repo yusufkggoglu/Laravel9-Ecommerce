@@ -1,6 +1,6 @@
 @extends('layouts.home')
 
-@section('title',$setting->title)
+@section('title','Sepet | '.$setting->title)
 @section('description',$setting->description)
 @section('keywords',$setting->keywords)
 @section('icon',Storage::url($setting->icon))
@@ -13,9 +13,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb-text product-more">
-                    <a href="./home.html"><i class="fa fa-home"></i> Home</a>
-                    <a href="./shop.html">Shop</a>
-                    <span>Shopping Cart</span>
+                    <a href="./home.html"><i class="fa fa-home"></i> Anasayfa</a>
+                    <span>Sepet</span>
                 </div>
             </div>
         </div>
@@ -32,87 +31,64 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Image</th>
-                                <th class="p-name">Product Name</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
+                                <th>Fotoğraf</th>
+                                <th class="p-name">Ürün Adı</th>
+                                <th>Beden</th>
+                                <th>Fiyat</th>
+                                <th>Adet</th>
+                                <th>Toplam Tutar</th>
                                 <th><i class="ti-close"></i></th>
                             </tr>
                         </thead>
                         <tbody>
+                            @if($cartItem)
+                            @foreach($cartItem as $cart)
+                            <br><br>
                             <tr>
-                                <td class="cart-pic first-row"><img src="img/cart-page/product-1.jpg" alt=""></td>
-                                <td class="cart-title first-row">
-                                    <h5>Pure Pineapple</h5>
-                                </td>
-                                <td class="p-price first-row">$60.00</td>
-                                <td class="qua-col first-row">
-                                    <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="total-price first-row">$60.00</td>
-                                <td class="close-td first-row"><i class="ti-close"></i></td>
-                            </tr>
-                            <tr>
-                                <td class="cart-pic"><img src="img/cart-page/product-2.jpg" alt=""></td>
+                                <a href="/product/{{$cart['productID']}}"><td class="cart-pic"><img src="{{Storage::url($cart['image'])}}" style="width: 100px; height:100px ;" alt=""></td></a>
                                 <td class="cart-title">
-                                    <h5>American lobster</h5>
+                                    <h5>{{$cart['name'] ?? ''}} </h5>
                                 </td>
-                                <td class="p-price">$60.00</td>
+                                <td>{{$cart['kind'] ?? ''}}</td>
+                                <td>{{$cart['price']}}₺</td>
                                 <td class="qua-col">
                                     <div class="quantity">
                                         <div class="pro-qty">
-                                            <input type="text" value="1">
+                                            <input type="text" name="quantity" value="{{$cart['quantity']}}">
                                         </div>
                                     </div>
                                 </td>
-                                <td class="total-price">$60.00</td>
-                                <td class="close-td"><i class="ti-close"></i></td>
+                                <td class="p-price">{{$cart['price'] * $cart['quantity']}}₺</td>
+    
+                                <a href="/shopcart/remove({{$cart['productID']}}"><td class="close-td"><i class="ti-close"></i></td></a>
                             </tr>
-                            <tr>
-                                <td class="cart-pic"><img src="img/cart-page/product-3.jpg" alt=""></td>
-                                <td class="cart-title">
-                                    <h5>Guangzhou sweater</h5>
-                                </td>
-                                <td class="p-price">$60.00</td>
-                                <td class="qua-col">
-                                    <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="total-price">$60.00</td>
-                                <td class="close-td"><i class="ti-close"></i></td>
-                            </tr>
+                            @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="cart-buttons">
-                            <a href="#" class="primary-btn continue-shop">Continue shopping</a>
-                            <a href="#" class="primary-btn up-cart">Update cart</a>
+                            <a href="/shop" class="primary-btn continue-shop">Alışverişe devam et</a>
+                            <!-- <a href="#" class="primary-btn up-cart">Sepeti Boşalt</a> -->
                         </div>
                         <div class="discount-coupon">
-                            <h6>Discount Codes</h6>
+                            <h6>İndirim Kodu</h6>
                             <form action="#" class="coupon-form">
-                                <input type="text" placeholder="Enter your codes">
-                                <button type="submit" class="site-btn coupon-btn">Apply</button>
+                                <input type="text" placeholder="Kodu giriniz...">
+                                <button type="submit" class="site-btn coupon-btn">Gönder</button>
                             </form>
                         </div>
                     </div>
                     <div class="col-lg-4 offset-lg-4">
                         <div class="proceed-checkout">
                             <ul>
-                                <li class="subtotal">Subtotal <span>$240.00</span></li>
-                                <li class="cart-total">Total <span>$240.00</span></li>
+                                <li class="subtotal">Sepet <span>{{$totalPrice}}₺</span></li>
+                                <li class="subtotal">Kargo <span>20₺</span></li>
+                                <li class="cart-total">Toplam <span>{{$totalPrice+20}}₺</span></li>
                             </ul>
-                            <a href="#" class="proceed-btn">PROCEED TO CHECK OUT</a>
+                            <a href="#" class="proceed-btn">Ödeme Yap</a>
                         </div>
                     </div>
                 </div>
