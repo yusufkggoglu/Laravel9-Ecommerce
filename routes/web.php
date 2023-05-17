@@ -37,8 +37,9 @@ Route::post('/loginadmincheck', [HomeController::class, 'loginadmincheck'])->nam
 
 Route::post('/shopcart/add', [ShopCartController::class, 'add'])->name('shop_cart_add');
 Route::get('/shopcart', [ShopCartController::class, 'shopcart'])->name('shop_cart');
-Route::get('/shopcart/remove/{id}', [ShopCartController::class, 'remove'])->name('shop_cart_remove');
-Route::get('/shopcart/remove/', [ShopCartController::class, 'remove'])->name('shop_cart_remove');
+Route::get('/shopcart/remove/{id}/{slug}', [ShopCartController::class, 'remove'])->name('shop_cart_remove');
+Route::get('/shopcart/remove/all', [ShopCartController::class, 'removeall'])->name('shop_cart_remove_all');
+Route::post('/shopcart/update/{id}/{slug}', [ShopCartController::class, 'update'])->name('shop_cart_update');
 
 Route::middleware('auth')->group(function () {
         //****************USER ROUTES START*****************************

@@ -83,8 +83,8 @@
                                     <div class="fw-size-choose">
                                         @foreach($stock as $rs)
                                         <div class="sc-item">
-                                            <input type="radio" name="kind" value="{{$rs->kind}}" id="s-size">
-                                            <label for="s-size">{{$rs->kind}}</label>
+                                            <input type="radio" name="kind" value="{{$rs->kind}}" id="{{$rs->kind}}-size">
+                                            <label for="{{$rs->kind}}-size">{{$rs->kind}}</label>
                                         </div>
                                         @endforeach
                                     </div>

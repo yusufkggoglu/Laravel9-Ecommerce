@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ShopCart;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 
 class ShopCartController extends Controller
@@ -24,15 +25,17 @@ class ShopCartController extends Controller
         $quantity=$request->quantity;
         $kind=$request->kind;
         $product=Product::find($productID);
+        $stock=Stock::where('product_id',$productID)->where('kind',$kind)->first();
+        $stockID=$stock->id;
         if(!$product){
             return back()->withError('Ürün Bulunamadı !');
         }
         $cartItem = session('cart',[]);
-        if(array_key_exists($productID,$cartItem)){
-            $cartItem[$productID]['quantity'] += $quantity;
+        if(array_key_exists($stockID,$cartItem)){
+            $cartItem[$stockID]['quantity'] += $quantity;
         }
         else{
-            $cartItem[$productID]=[
+            $cartItem[$stockID]=[
                 'productID' => $product->id,
                 'image' => $product->image,
                 'name' => $product->title,
@@ -41,23 +44,35 @@ class ShopCartController extends Controller
                 'kind' => $kind,
             ];
         }
-        
+
         //return $cartItem;
         session(['cart'=>$cartItem]);
         return back()->withSuccess('Ürün Sepete Eklendi !');
     }
-    public function remove(Request $request)
+    public function remove($id,$slug)
+    {
+        $stock=Stock::where('product_id',$id)->where('kind',$slug)->first();
+        $stockID=$stock->id;
+        $cart = session('cart',[]);
+        unset($cart[$stockID]);
+        session(['cart'=>$cart]);
+        return redirect()->route('shop_cart');
+    }
+    public function removeall(Request $request)
     {
 
-    }//back()->withSucces('Ürün Silindi !')
+        $request->session()->flush();
+        return back()->withSuccess('Sepet Boşaltıldı !');
 
-    // public static function getShopCart($user_id){
-    //     $shopCart=ShopCart::where('user_id',$user_id)->get();
-    //     $products=Product::where('id',$shopCart->product_id)->get();
-    //     return $products;
-    // }
-    // public static function getShopCartProducts($product_id){
-    //     $products=Product::where('id',$product_id)->get();
-    //     return $products;
-    // }
+    }
+    public function update(Request $request,$id,$slug)
+    {
+        $quantity = $request->input('quantity');
+        $cart = session('cart',[]);
+        $stock=Stock::where('product_id',$id)->where('kind',$slug)->first();
+        $stockID=$stock->id;
+        $cart[$stockID]['quantity'] =$quantity;
+        session(['cart'=>$cart]);
+        return redirect()->route('shop_cart');
+    }
 }

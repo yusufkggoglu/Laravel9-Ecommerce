@@ -43,35 +43,50 @@
                         <tbody>
                             @if($cartItem)
                             @foreach($cartItem as $cart)
-                            <br><br>
-                            <tr>
-                                <a href="/product/{{$cart['productID']}}"><td class="cart-pic"><img src="{{Storage::url($cart['image'])}}" style="width: 100px; height:100px ;" alt=""></td></a>
-                                <td class="cart-title">
-                                    <h5>{{$cart['name'] ?? ''}} </h5>
-                                </td>
-                                <td>{{$cart['kind'] ?? ''}}</td>
-                                <td>{{$cart['price']}}₺</td>
-                                <td class="qua-col">
-                                    <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" name="quantity" value="{{$cart['quantity']}}">
+                            <form method="post" action="/shopcart/update/{{$cart['productID']}}/{{$cart['kind']}}">
+                                @csrf
+                                <br><br>
+                                <tr>
+                                    <a href="/product/{{$cart['productID']}}">
+                                        <td class="cart-pic"><img src="{{Storage::url($cart['image'])}}" style="width: 100px; height:100px ;" alt=""></td>
+                                    </a>
+                                    <td class="cart-title">
+                                        <h5>{{$cart['name']}} </h5>
+                                    </td>
+                                    <td>{{$cart['kind']}}</td>
+                                    <td>{{$cart['price']}}₺</td>
+                                    <td class="qua-col">
+                                        <div class="quantity">
+                                            <button type="submit" class="pro-qty">
+                                                <input type="text" min="1" name="quantity" value="{{$cart['quantity']}}" onchange="this.form.submit()">
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="p-price">{{$cart['price'] * $cart['quantity']}}₺</td>
-    
-                                <a href="/shopcart/remove({{$cart['productID']}}"><td class="close-td"><i class="ti-close"></i></td></a>
-                            </tr>
-                            @endforeach
-                            @endif
+                                    </td>
+                                    <td class="p-price">{{$cart['price'] * $cart['quantity']}}₺</td>
+                                    <td class="close-td">
+                                        <a href="/shopcart/remove/{{$cart['productID']}}/{{$cart['kind']}}">
+                                            <i class="ti-close"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @endif
                         </tbody>
                     </table>
+                    </form>
+                    @if(!$cartItem)
+                    <br>
+                    <hr>
+                    <h3 style="text-align: center;">Sepet Boş!</h1>
+                        <br>
+                        <hr>
+                        @endif
                 </div>
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="cart-buttons">
-                            <a href="/shop" class="primary-btn continue-shop">Alışverişe devam et</a>
-                            <!-- <a href="#" class="primary-btn up-cart">Sepeti Boşalt</a> -->
+                            <a href="/shop" class="primary-btn up-cart">Alışverişe devam et</a>
+                            <a href="/shopcart/remove/all" class="primary-btn up-cart">Sepeti Boşalt</a>
                         </div>
                         <div class="discount-coupon">
                             <h6>İndirim Kodu</h6>
@@ -85,10 +100,18 @@
                         <div class="proceed-checkout">
                             <ul>
                                 <li class="subtotal">Sepet <span>{{$totalPrice}}₺</span></li>
+                                @if($cartItem)
                                 <li class="subtotal">Kargo <span>20₺</span></li>
                                 <li class="cart-total">Toplam <span>{{$totalPrice+20}}₺</span></li>
+                                @endif
+                                @if(!$cartItem)
+                                <li class="subtotal">Kargo <span>0₺</span></li>
+                                <li class="cart-total">Toplam <span>0₺</span></li>
+                                @endif
                             </ul>
+                            @if($cartItem)
                             <a href="#" class="proceed-btn">Ödeme Yap</a>
+                            @endif
                         </div>
                     </div>
                 </div>
