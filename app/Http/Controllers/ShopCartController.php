@@ -44,35 +44,31 @@ class ShopCartController extends Controller
                 'kind' => $kind,
             ];
         }
-
-        //return $cartItem;
         session(['cart'=>$cartItem]);
         return back()->withSuccess('Ürün Sepete Eklendi !');
     }
-    public function remove($id,$slug)
+    public function remove(Request $request)
     {
-        $stock=Stock::where('product_id',$id)->where('kind',$slug)->first();
-        $stockID=$stock->id;
-        $cart = session('cart',[]);
-        unset($cart[$stockID]);
-        session(['cart'=>$cart]);
-        return redirect()->route('shop_cart');
+        $stockID =$request->shopCartID;
+        $cartItem = session('cart',[]);
+        unset($cartItem[$stockID]);
+        session(['cart'=>$cartItem]);
+        return back()->withSuccess('Ürün Başarıyla Sepetten Kaldırıldı !');
     }
     public function removeall(Request $request)
     {
-
         $request->session()->flush();
         return back()->withSuccess('Sepet Boşaltıldı !');
 
     }
-    public function update(Request $request,$id,$slug)
+    public function update(Request $request)
     {
+        // dd($request);
         $quantity = $request->input('quantity');
-        $cart = session('cart',[]);
-        $stock=Stock::where('product_id',$id)->where('kind',$slug)->first();
-        $stockID=$stock->id;
-        $cart[$stockID]['quantity'] =$quantity;
-        session(['cart'=>$cart]);
-        return redirect()->route('shop_cart');
+        $stockID =$request->shopCartID;
+        $cartItem = session('cart',[]);
+        $cartItem[$stockID]['quantity'] = $quantity;
+        session(['cart'=>$cartItem]);
+        return back()->withSuccess('Ürün Adeti Başarıyla Güncellendi !');
     }
 }

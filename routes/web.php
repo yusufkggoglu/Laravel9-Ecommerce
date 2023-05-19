@@ -35,15 +35,20 @@ Route::get('/logoutuser', [HomeController::class, 'logout'])->name('logoutuser')
 Route::post('/loginusercheck', [HomeController::class, 'loginusercheck'])->name('loginusercheck');
 Route::post('/loginadmincheck', [HomeController::class, 'loginadmincheck'])->name('loginadmincheck');
 
-Route::post('/shopcart/add', [ShopCartController::class, 'add'])->name('shop_cart_add');
-Route::get('/shopcart', [ShopCartController::class, 'shopcart'])->name('shop_cart');
-Route::get('/shopcart/remove/{id}/{slug}', [ShopCartController::class, 'remove'])->name('shop_cart_remove');
-Route::get('/shopcart/remove/all', [ShopCartController::class, 'removeall'])->name('shop_cart_remove_all');
-Route::post('/shopcart/update/{id}/{slug}', [ShopCartController::class, 'update'])->name('shop_cart_update');
+//**********************SHOP CART ROUTES**************************************
+Route::prefix('shopcart')->name('shop_cart_')->controller(ShopCartController::class)->group(function () {
+    Route::get('/', [ShopCartController::class, 'shopcart'])->name('index');
+    Route::post('/shopcart/add', 'add')->name('add');
+    Route::post('/remove', [ShopCartController::class, 'remove'])->name('remove');
+    Route::post('/update', [ShopCartController::class, 'update'])->name('update');
+    Route::get('/remove/all', [ShopCartController::class, 'removeall'])->name('remove_all');
+});
 
 Route::middleware('auth')->group(function () {
-        //****************USER ROUTES START*****************************
-
+    //****************USER ROUTES START*****************************
+    Route::get('/favourites', [HomeController::class, 'favourite'])->name('favourite');
+    Route::post('/favourite/add', [HomeController::class, 'favourite_add'])->name('favourite_add');
+    Route::get('/favourite/adds/{id}', [HomeController::class, 'favourite_adds'])->name('favourite_adds');
 
     //****************ADMİN PANEL ROUTES START*****************************
     Route::middleware('admin')->prefix('admin')->name('admin_')->group(function () {

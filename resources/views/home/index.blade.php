@@ -49,7 +49,7 @@
                     </ul>
                 </div>
                 <div class="product-slider owl-carousel">
-                @foreach(\App\Http\Controllers\HomeController::getProducts($rs->id) as $temp)
+                @foreach(\App\Http\Controllers\HomeController::getProductsByCollectionID($rs->id) as $temp)
                     <div class="product-item">
                         <div class="pi-pic">
                             <img src="{{Storage::url($temp->image)}}" alt="">
@@ -81,50 +81,12 @@
 </section>
 <!-- Women Banner Section End -->
 @endforeach
-<!-- Deal Of The Week Section Begin-->
-<!-- <section class="deal-of-week set-bg spad" data-setbg="{{asset('assets')}}/home/img/time-bg.jpg">
-    <div class="container">
-        <div class="col-lg-6 text-center">
-            <div class="section-title">
-                <h2>Deal Of The Week</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed<br /> do ipsum dolor sit amet,
-                    consectetur adipisicing elit </p>
-                <div class="product-price">
-                    $35.00
-                    <span>/ HanBag</span>
-                </div>
-            </div>
-            <div class="countdown-timer" id="countdown">
-                <div class="cd-item">
-                    <span>56</span>
-                    <p>Days</p>
-                </div>
-                <div class="cd-item">
-                    <span>12</span>
-                    <p>Hrs</p>
-                </div>
-                <div class="cd-item">
-                    <span>40</span>
-                    <p>Mins</p>
-                </div>
-                <div class="cd-item">
-                    <span>52</span>
-                    <p>Secs</p>
-                </div>
-            </div>
-            <a href="#" class="primary-btn">Shop Now</a>
-        </div>
-    </div>
-</section> -->
-<!-- Deal Of The Week Section End -->
-
-
 <!-- Instagram Section Begin -->
-<!-- <div class="instagram-photo">
+<div class="instagram-photo">
     <div class="insta-item set-bg" data-setbg="{{asset('assets')}}/home/img/insta-1.jpg">
         <div class="inside-text">
             <i class="ti-instagram"></i>
-            <h5><a href="#">colorlib_Collection</a></h5>
+            <h5><a href="{{$setting->instagram}}">colorlib_Collection</a></h5>
         </div>
     </div>
     <div class="insta-item set-bg" data-setbg="{{asset('assets')}}/home/img/insta-2.jpg">
@@ -157,6 +119,48 @@
             <h5><a href="#">colorlib_Collection</a></h5>
         </div>
     </div>
-</div> -->
+</div>
 <!-- Instagram Section End -->
+
+<section class="latest-blog spad">
+        <div class="container">
+            <div class="benefit-items">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="single-benefit">
+                            <div class="sb-icon">
+                                <img src="{{asset('assets')}}/home/img/icon-1.png" alt="">
+                            </div>
+                            <div class="sb-text">
+                                <h6>Ücretsiz kargo</h6>
+                                <p>200₺ üzeri siparişler için</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="single-benefit">
+                            <div class="sb-icon">
+                                <img src="{{asset('assets')}}/home/img/icon-2.png" alt="">
+                            </div>
+                            <div class="sb-text">
+                                <h6>Zamanında Teslim</h6>
+                                <p>2-3 gün içerisinde</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="single-benefit">
+                            <div class="sb-icon">
+                                <img src="{{asset('assets')}}/home/img/icon-1.png" alt="">
+                            </div>
+                            <div class="sb-text">
+                                <h6>Güvenli Ödeme</h6>
+                                <p>Sanal Post</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection

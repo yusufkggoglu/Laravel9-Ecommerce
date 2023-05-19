@@ -27,7 +27,12 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="cart-table">
+                <div class="cart-table" id="cart">
+                    <div>
+                        @if(session()->get('success'))
+                        <div class="alert alert-success">{{session()->get('success')}}</div>
+                        @endif
+                    </div>
                     <table>
                         <thead>
                             <tr>
@@ -42,42 +47,46 @@
                         </thead>
                         <tbody>
                             @if($cartItem)
-                            @foreach($cartItem as $cart)
-                            <form method="post" action="/shopcart/update/{{$cart['productID']}}/{{$cart['kind']}}">
-                                @csrf
-                                <br><br>
-                                <tr>
-                                    <a href="/product/{{$cart['productID']}}">
-                                        <td class="cart-pic"><img src="{{Storage::url($cart['image'])}}" style="width: 100px; height:100px ;" alt=""></td>
-                                    </a>
-                                    <td class="cart-title">
-                                        <h5>{{$cart['name']}} </h5>
-                                    </td>
-                                    <td>{{$cart['kind']}}</td>
-                                    <td>{{$cart['price']}}₺</td>
-                                    <td class="qua-col">
-                                        <div class="quantity">
+                            @foreach($cartItem as $key => $cart)
+                            <br><br>
+                            <tr>
+                                <a href="/product/{{$cart['productID']}}">
+                                    <td class="cart-pic"><img src="{{Storage::url($cart['image'])}}" style="width: 100px; height:100px ;" alt=""></td>
+                                </a>
+                                <td class="cart-title">
+                                    <h5>{{$cart['name']}} </h5>
+                                </td>
+                                <td>{{$cart['kind']}}</td>
+                                <td>{{$cart['price']}}₺</td>
+                                <td class="qua-col">
+                                    <div class="quantity">
+                                        <form method="POST" action="/shopcart/update">
+                                            @csrf
+                                            <input type="hidden" name="shopCartID" value="{{$key}}">
                                             <button type="submit" class="pro-qty">
                                                 <input type="text" min="1" name="quantity" value="{{$cart['quantity']}}" onchange="this.form.submit()">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="p-price">{{$cart['price'] * $cart['quantity']}}₺</td>
-                                    <td class="close-td">
-                                        <a href="/shopcart/remove/{{$cart['productID']}}/{{$cart['kind']}}">
-                                            <i class="ti-close"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                @endif
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                                <td class="p-price">{{$cart['price'] * $cart['quantity']}}₺</td>
+                                <td class="close-td">
+                                    <form method="POST" action="/shopcart/remove">
+                                        @csrf
+                                        <input type="hidden" name="shopCartID" value="{{$key}}">
+                                        <button type="submit" class="ti-close"></button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                            @endif
                         </tbody>
                     </table>
-                    </form>
+
                     @if(!$cartItem)
                     <br>
                     <hr>
-                    <h3 style="text-align: center;">Sepet Boş!</h1>
+                    <h3 style="text-align: center;">Sepet Boş!</h3>
                         <br>
                         <hr>
                         @endif

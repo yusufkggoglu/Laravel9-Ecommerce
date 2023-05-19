@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Faq;
+use App\Models\Favourite;
 use App\Models\Image;
 use App\Models\Message;
 use App\Models\Product;
@@ -17,6 +18,18 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class HomeController extends Controller
 {
+    protected $appends=[
+        'getProductsByCollectionID',
+        'getProducts'
+    ];
+    public static function getProductsByCollectionID($collection_id){
+        $product=Product::where('collection_id',$collection_id)->with('category')->limit(8)->orderBy('id', 'desc')->get();
+        return $product;
+    }
+    public static function getProducts($id){
+        $product=Product::find($id)->with('category')->get();
+        return $product;
+    }
     public function index()
     {
         $sliders = Slider::all();
@@ -25,14 +38,38 @@ class HomeController extends Controller
         ]);
         
     }
-    protected $appends=[
-        'getProducts',
-    ];
-    public static function getProducts($collection_id){
-        $product=Product::where('collection_id',$collection_id)->with('category')->limit(8)->orderBy('id', 'desc')->get();
-        return $product;
+    public function favourite()
+    {
+        $user_id=Auth::id();
+        $favourite=Favourite::where('user_id',$user_id)->with('product')->get();
+        return view('home.favourite',[
+            'favourite' => $favourite
+        ]);
     }
-    public function product(Request $request, $id)
+    public function favourite_add(Request $request)
+    {
+        // dd($request);
+        $product_id=$request->input('product_id');
+        $user_id=Auth::id();
+        $data = new Favourite();
+        $data->user_id=$user_id;
+        $data->product_id=$product_id;
+        $data->save();
+        return back();
+    }
+    
+    public function favourite_adds($id)
+    {
+        // dd($request);
+        $product_id=$id;
+        $user_id=Auth::id();
+        $data = new Favourite();
+        $data->user_id=$user_id;
+        $data->product_id=$product_id;
+        $data->save();
+        return back()->withSuccess('Ürün Favorilere Eklendi !');
+    }
+    public function product($id)
     {
         $stock = Stock::where('product_id', $id)
             ->where('stock', '>', 0)
@@ -111,7 +148,6 @@ class HomeController extends Controller
             'categoryid' => $id,
         ]);
     }
-
     public function contact()
     {
         return view('home.contact');

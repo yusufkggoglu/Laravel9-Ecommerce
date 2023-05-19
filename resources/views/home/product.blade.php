@@ -28,6 +28,11 @@
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-6">
+                        <div>
+                            @if(session()->get('success'))
+                            <div class="alert alert-success">{{session()->get('success')}}</div>
+                            @endif
+                        </div>
                         <div class="product-pic-zoom">
                             <img class="product-big-img" src="{{Storage::url($firstimage->image)}}" alt="">
                             <div class="zoom-icon">
@@ -49,7 +54,7 @@
                             <div class="pd-title">
                                 <span>{{$data->color}}</span>
                                 <h3>{{$data->title}}</h3>
-                                <a href="#" class="heart-icon"><i class="icon_heart_alt"></i></a>
+                                <a href="/favourite/adds/{{$data->id}}" class="heart-icon"><i class="icon_heart_alt"></i></a>
                             </div>
                             <div class="pd-rating">
                                 <i class="fa fa-star"></i>

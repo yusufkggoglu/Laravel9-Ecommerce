@@ -31,29 +31,29 @@
                     <div class="filter-widget">
                         <h4 class="fw-title">Koleksiyon</h4>
                         <div class="fw-brand-check">
-                        @foreach($collections as $rs)
+                            @foreach($collections as $rs)
                             <div class="bc-item">
                                 <label>
                                     {{$rs->title}}
-                                    <input type="radio" name="collection_id" value="{{$rs->id}}" >
+                                    <input type="radio" name="collection_id" value="{{$rs->id}}">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-                        @endforeach
+                            @endforeach
                         </div>
                     </div>
                     <div class="filter-widget">
                         <h4 class="fw-title">Kategori</h4>
                         <div class="fw-brand-check">
-                        @foreach($categories as $rs)
+                            @foreach($categories as $rs)
                             <div class="bc-item">
                                 <label>
                                     {{$rs->title}}
-                                    <input type="radio" name="category_id" value="{{$rs->id}}" >
+                                    <input type="radio" name="category_id" value="{{$rs->id}}">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-                        @endforeach
+                            @endforeach
                         </div>
                     </div>
                     <div class="filter-widget">
@@ -101,85 +101,65 @@
                             </div>
                         </div>
                         <button type="submit" class="filter-btn">Filtrele</button>
-                        
                     </div>
-                    <!-- <div class="filter-widget">
-                        <h4 class="fw-title">Beden</h4>
-                        <div class="fw-size-choose">
-                            <div class="sc-item">
-                                <input type="radio" name="size" id="s-size">
-                                <label for="s-size">s</label>
-                            </div>
-                            <div class="sc-item">
-                                <input type="radio" name="size" id="m-size">
-                                <label for="m-size">m</label>
-                            </div>
-                            <div class="sc-item">
-                                <input type="radio" name="size" id="l-size">
-                                <label for="l-size">l</label>
-                            </div>
-                            <div class="sc-item">
-                                <input type="radio" name="size" id="xs-size">
-                                <label for="xs-size">xs</label>
+            </div>
+            <div class="col-lg-9 order-1 order-lg-2">
+                <div class="product-show-option">
+                    <div class="row">
+                        <div class="col-lg-7 col-md-7">
+                            <div class="select-option">
+                                <select name="sort" class="sorting">
+                                    <option value="asc">Artan Fiyat</option>
+                                    <option value="desc">Azalan Fiyat</option>
+                                </select>
                             </div>
                         </div>
-                        <button type="submit" class="filter-btn">Ara</button>
+                        <div class="col-lg-5 col-md-5 text-right">
+                            <p>{{$product->count()}} Ürün</p>
+                        </div>
+                    </div>
+                </div>
                 </form>
-            </div> -->
-        </div>
-        <div class="col-lg-9 order-1 order-lg-2">
-            <div class="product-show-option">
-                <div class="row">
-                    <div class="col-lg-7 col-md-7">
-                        <div class="select-option">
-                            <select name="sort" class="sorting">
-                                <option value="asc">Artan Fiyat</option>
-                                <option value="desc">Azalan Fiyat</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-md-5 text-right">
-                        <p>{{$product->count()}} Ürün</p>
-                    </div>
-                </div>
-            </div>
-            </form>
-            <div class="product-list">
-                <div class="row">
-                    @foreach($product as $rs)
-                    <div class="col-lg-4 col-sm-6">
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="{{Storage::url($rs->image)}}" alt="">
-                                <div class="sale pp-sale">Satın Al</div>
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
+                <div class="product-list">
+                    <div class="row">
+                        @foreach($product as $rs)
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="product-item">
+                                <div class="pi-pic">
+                                    <img src="{{Storage::url($rs->image)}}" alt="">
+                                    <div class="sale pp-sale">Satın Al</div>
+                                    <div class="icon">
+                                            <form method="POST" action="{{route('favourite_add')}}">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{$rs->id}}">
+                                                <button type="submit" class="icon_heart_alt"></i>
+                                            </form>
+                                    </div>
+                                    <ul>
+                                        <li class="w-icon active"><a href="/product/{{$rs->id}}"><i class="icon_bag_alt"></i></a></li>
+                                        <li class="quick-view"><a href="/product/{{$rs->id}}">+ Görüntüle</a></li>
+                                    </ul>
                                 </div>
-                                <ul>
-                                    <li class="w-icon active"><a href=""><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="/product/{{$rs->id}}">+ Görüntüle</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">{{$rs->category->title}}</div>
-                                <a href="#">
-                                    <h5>{{$rs->title}}</h5>
-                                </a>
-                                <div class="product-price">
-                                    {{$rs->price}}₺
-                                    <!-- <span>$35.00</span> -->
+                                <div class="pi-text">
+                                    <div class="catagory-name">{{$rs->category->title}}</div>
+                                    <a href="#">
+                                        <h5>{{$rs->title}}</h5>
+                                    </a>
+                                    <div class="product-price">
+                                        {{$rs->price}}₺
+                                        <!-- <span>$35.00</span> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                     </div>
-                    @endforeach
+                </div>
+                <div class="loading-more">
+                    {{ $product->withQueryString()->links() }}
                 </div>
             </div>
-            <div class="loading-more">
-                {{ $product->withQueryString()->links() }}
-            </div>
         </div>
-    </div>
     </div>
 </section>
 <!-- Product Shop Section End -->

@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb-text">
-                    <a href="#"><i class="fa fa-home"></i> Anasayfa</a>
+                    <a href="/"><i class="fa fa-home"></i> Anasayfa</a>
                     <span>Sıkça Sorulan Sorular</span>
                 </div>
             </div>

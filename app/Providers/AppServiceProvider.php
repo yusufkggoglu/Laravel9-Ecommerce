@@ -29,13 +29,19 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('*', function ($view) {
-
             $setting = Setting::first();
             $view->with('setting',  $setting);
             $categories = Category::all();
             $view->with('categories',  $categories);
             $collections = Collection::all();
             $view->with('collections',  $collections);
+            $cartItem = session('cart',[]);
+            $view->with('cartItem',  $cartItem);
+            $totalPrice= 0;
+            foreach ($cartItem as $cart) {
+                $totalPrice += $cart['price'] * $cart['quantity'];
+            }
+            $view->with('totalPrice',  $totalPrice);
         });
     }
 }

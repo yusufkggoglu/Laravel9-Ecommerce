@@ -61,52 +61,45 @@
                             </a>
                         </li>
                         <li class="cart-icon">
-                            <a href="#">
+                            <a>
                                 <i class="icon_bag_alt"></i>
-                                <span>3</span>
+                                @if(session('cart'))<span>{{count(session('cart'))}}</span>@endif
                             </a>
                             <div class="cart-hover">
                                 <div class="select-items">
                                     <table>
                                         <tbody>
+                                            @foreach($cartItem as $key => $cart)
                                             <tr>
-                                                <td class="si-pic"><img src="{{asset('assets')}}/home/img/select-product-1.jpg" alt=""></td>
+                                                <td class="si-pic"><img src="{{Storage::url($cart['image'])}}" style="width: 50px; height:50px ;" alt=""></td>
                                                 <td class="si-text">
                                                     <div class="product-selected">
-                                                        <p>$60.00 x 1</p>
-                                                        <h6>Kabino Bedside Table</h6>
+                                                        <h6>{{$cart['name']}} - {{$cart['kind']}}</h6>
+                                                        <p>{{$cart['price']}}₺ x {{$cart['quantity']}}</p>
                                                     </div>
                                                 </td>
-                                                <td class="si-close">
-                                                    <i class="ti-close"></i>
+                                                <td>
+                                                    <form method="POST" action="/shopcart/remove">
+                                                        @csrf
+                                                        <input type="hidden" name="shopCartID" value="{{$key}}">
+                                                        <button type="submit" class="ti-close"></button>
+                                                    </form>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td class="si-pic"><img src="{{asset('assets')}}/home/img/select-product-2.jpg" alt=""></td>
-                                                <td class="si-text">
-                                                    <div class="product-selected">
-                                                        <p>$60.00 x 1</p>
-                                                        <h6>Kabino Bedside Table</h6>
-                                                    </div>
-                                                </td>
-                                                <td class="si-close">
-                                                    <i class="ti-close"></i>
-                                                </td>
-                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="select-total">
-                                    <span>total:</span>
-                                    <h5>$120.00</h5>
+                                    <span>Toplam :</span>
+                                    <h5>{{$totalPrice}}₺</h5>
                                 </div>
                                 <div class="select-button">
-                                    <a href="#" class="primary-btn view-card">VIEW CARD</a>
-                                    <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
+                                    <a href="/shopcart" class="primary-btn view-card">Sepet</a>
+                                    <a href="#" class="primary-btn checkout-btn">Ödeme</a>
                                 </div>
                             </div>
                         </li>
-                        <li class="cart-price">$150.00</li>
                     </ul>
                 </div>
             </div>
@@ -120,8 +113,8 @@
                     <span>Kategoriler</span>
                     <ul class="depart-hover">
                         @foreach($categories as $rs)
-                            <li><a href="/shop/category/{{$rs->id}}">{{$rs->title}}</a></li>
-                        @endforeach 
+                        <li><a href="/shop/category/{{$rs->id}}">{{$rs->title}}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -131,13 +124,6 @@
                     <li><a href="/shop">Alışveriş</a></li>
                     <li><a href="/contact">İletişim</a></li>
                     <li><a href="/faq">FAQ</a></li>
-                    <!-- <li><a href="">Koleksiyon</a>
-                        <ul class="dropdown">
-                            @foreach($collections as $rs)
-                                <li><a href="/shop/collection/{{$rs->id}}">{{$rs->title}}</a></li>
-                            @endforeach
-                        </ul>
-                    </li> -->
                     @guest()
                     <li><a href="/loginuser">Giriş</a>
                     </li>
