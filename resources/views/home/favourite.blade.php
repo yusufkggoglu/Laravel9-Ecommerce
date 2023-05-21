@@ -49,11 +49,7 @@
                                     </a>
                                     <div class="sale pp-sale">Satın Al</div>
                                     <div class="icon">
-                                        <form method="POST" action="{{route('favourite_add')}}">
-                                            @csrf
-                                            <input type="hidden" name="product_id" value="{{$rs->product_id}}">
-                                            <button type="submit" class="icon_heart_alt"></i>
-                                        </form>
+                                    <a href="/favourite/add/{{$rs->product_id}}" class="heart-icon"><i class="icon_heart_alt"></i></a>
                                     </div>
                                     <ul>
                                         <li class="w-icon active"><a href="/product/{{$rs->product_id}}"><i class="icon_bag_alt"></i></a></li>
@@ -73,10 +69,6 @@
 
             </div>
         </div>
-        @endif
-        @if($data)
-        <h3 style="text-align: center;">Beğenilen Ürünler Bulunamadı !</h3>
-        <br><br>
         <div class="col-lg-12">
             <div class="cart-buttons" style="text-align: center;">
                 <a href="/shop" class="primary-btn up-cart">Alışverişe devam et</a>

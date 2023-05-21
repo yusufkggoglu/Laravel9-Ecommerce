@@ -131,11 +131,7 @@
                                     </a>
                                     <div class="sale pp-sale">Satın Al</div>
                                     <div class="icon">
-                                        <form method="POST" action="{{route('favourite_add')}}">
-                                            @csrf
-                                            <input type="hidden" name="product_id" value="{{$rs->id}}">
-                                            <button type="submit" class="icon_heart_alt"></i>
-                                        </form>
+                                    <a href="/favourite/add/{{$rs->id}}" class="heart-icon"><i class="icon_heart_alt"></i></a>
                                     </div>
                                     <ul>
                                         <li class="w-icon active"><a href="/product/{{$rs->id}}"><i class="icon_bag_alt"></i></a></li>

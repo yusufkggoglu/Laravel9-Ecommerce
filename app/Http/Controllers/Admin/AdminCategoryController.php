@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -122,6 +123,7 @@ class AdminCategoryController extends Controller
      */
     public function destroy(Category $category,$id)
     {
+        Product::where('category_id',$id)->delete();
         $data=Category::find($id);
         if($data->image && Storage::disk('public')->exists($data->image)){
             Storage::delete("$data->image");

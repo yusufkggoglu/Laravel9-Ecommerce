@@ -47,8 +47,7 @@ Route::prefix('shopcart')->name('shop_cart_')->controller(ShopCartController::cl
 Route::middleware('auth')->group(function () {
     //****************USER ROUTES START*****************************
     Route::get('/favourites', [HomeController::class, 'favourite'])->name('favourite');
-    Route::post('/favourite/add', [HomeController::class, 'favourite_add'])->name('favourite_add');
-    Route::get('/favourite/adds/{id}', [HomeController::class, 'favourite_adds'])->name('favourite_adds');
+    Route::get('/favourite/add/{id}', [HomeController::class, 'favourite_add'])->name('favourite_add');
 
     //****************ADMİN PANEL ROUTES START*****************************
     Route::middleware('admin')->prefix('admin')->name('admin_')->group(function () {

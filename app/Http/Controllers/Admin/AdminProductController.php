@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Collection;
+use App\Models\Favourite;
+use App\Models\Image;
 use App\Models\Product;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -133,6 +136,9 @@ class AdminProductController extends Controller
      */
     public function destroy($id)
     {
+        Stock::where('product_id',$id)->delete();
+        Image::where('product_id',$id)->delete();
+        Favourite::where('product_id',$id)->delete();
         $data=Product::find($id);
         if($data->image && Storage::disk('public')->exists($data->image)){
             Storage::delete("$data->image");

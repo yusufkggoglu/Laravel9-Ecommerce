@@ -54,7 +54,7 @@
                             <div class="pd-title">
                                 <span>{{$data->color}}</span>
                                 <h3>{{$data->title}}</h3>
-                                <a href="/favourite/adds/{{$data->id}}" class="heart-icon"><i class="icon_heart_alt"></i></a>
+                                <a href="/favourite/add/{{$data->id}}" class="heart-icon" ><i class="icon_heart_alt"></i></a>
                             </div>
                             <div class="pd-rating">
                                 <i class="fa fa-star"></i>

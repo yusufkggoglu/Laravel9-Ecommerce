@@ -47,9 +47,9 @@ class HomeController extends Controller
             'data' => $data
         ]);
     }
-    public function favourite_add(Request $request)
+    public function favourite_add(Request $request,$id)
     {
-        $product=Product::find($request->input('product_id'));
+        $product=Product::find($id);
         $user_id=Auth::id();
         $temp=Favourite::where('user_id',$user_id)->where('product_id',$product->id)->first();
         if(!$temp)
@@ -67,18 +67,6 @@ class HomeController extends Controller
         }
 
         return back();
-    }
-    
-    public function favourite_adds($id)
-    {
-        // dd($request);
-        $product_id=$id;
-        $user_id=Auth::id();
-        $data = new Favourite();
-        $data->user_id=$user_id;
-        $data->product_id=$product_id;
-        $data->save();
-        return back()->withSuccess('Ürün Favorilere Eklendi !');
     }
     public function product($id)
     {
