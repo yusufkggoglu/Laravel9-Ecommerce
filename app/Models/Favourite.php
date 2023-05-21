@@ -8,9 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Favourite extends Model
 {
     use HasFactory;
-
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
-    }
 }

@@ -11,6 +11,7 @@ use App\Models\ShopCart;
 use App\Models\Size;
 use App\Models\Slider;
 use App\Models\Stock;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -41,20 +42,30 @@ class HomeController extends Controller
     public function favourite()
     {
         $user_id=Auth::id();
-        $favourite=Favourite::where('user_id',$user_id)->with('product')->get();
+        $data=Favourite::where('user_id',$user_id)->get();
         return view('home.favourite',[
-            'favourite' => $favourite
+            'data' => $data
         ]);
     }
     public function favourite_add(Request $request)
     {
-        // dd($request);
-        $product_id=$request->input('product_id');
+        $product=Product::find($request->input('product_id'));
         $user_id=Auth::id();
-        $data = new Favourite();
-        $data->user_id=$user_id;
-        $data->product_id=$product_id;
-        $data->save();
+        $temp=Favourite::where('user_id',$user_id)->where('product_id',$product->id)->first();
+        if(!$temp)
+        {
+            $data = new Favourite();
+            $data->user_id=$user_id;
+            $data->product_id=$product->id;
+            $data->title=$product->title;
+            $data->image=$product->image;
+            $data->save();
+        }
+        if($temp)
+        {
+            Favourite::find($temp->id)->delete();
+        }
+
         return back();
     }
     

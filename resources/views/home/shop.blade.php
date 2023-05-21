@@ -126,14 +126,16 @@
                         <div class="col-lg-4 col-sm-6">
                             <div class="product-item">
                                 <div class="pi-pic">
-                                    <img src="{{Storage::url($rs->image)}}" alt="">
+                                    <a href="/product/{{$rs->id}}">
+                                        <img src="{{Storage::url($rs->image)}}" alt="">
+                                    </a>
                                     <div class="sale pp-sale">Satın Al</div>
                                     <div class="icon">
-                                            <form method="POST" action="{{route('favourite_add')}}">
-                                                @csrf
-                                                <input type="hidden" name="product_id" value="{{$rs->id}}">
-                                                <button type="submit" class="icon_heart_alt"></i>
-                                            </form>
+                                        <form method="POST" action="{{route('favourite_add')}}">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{$rs->id}}">
+                                            <button type="submit" class="icon_heart_alt"></i>
+                                        </form>
                                     </div>
                                     <ul>
                                         <li class="w-icon active"><a href="/product/{{$rs->id}}"><i class="icon_bag_alt"></i></a></li>
@@ -142,7 +144,7 @@
                                 </div>
                                 <div class="pi-text">
                                     <div class="catagory-name">{{$rs->category->title}}</div>
-                                    <a href="#">
+                                    <a href="/product/{{$rs->id}}">
                                         <h5>{{$rs->title}}</h5>
                                     </a>
                                     <div class="product-price">

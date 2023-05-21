@@ -24,7 +24,7 @@
 <!-- Product Shop Section Begin -->
 <section class="product-shop spad">
     <div class="container">
-        @if($favourite)
+        @if($data)
         <div class="row">
             <div class="col-lg-9 order-1 order-lg-2">
                 <div class="product-show-option">
@@ -33,33 +33,37 @@
 
                         </div>
                         <div class="col-lg-5 col-md-5 text-right">
-                            <p>{{$favourite->count()}} Favori</p>
+                            <p>{{$data->count()}} Favori</p>
                         </div>
                     </div>
                 </div>
                 <div class="product-list">
                     <div class="row">
-                        @foreach($favourite->product as $rs)
+                        @foreach($data as $rs)
                         <div class="col-lg-4 col-sm-6">
                             <div class="product-item">
                                 <div class="pi-pic">
-                                    <img src="{{Storage::url($rs->image)}}" alt="">
+                                    <a href="/product/{{$rs->product_id}}">
+
+                                        <img src="{{Storage::url($rs->image)}}" alt="">
+                                    </a>
                                     <div class="sale pp-sale">Satın Al</div>
                                     <div class="icon">
-                                        <i class="icon_heart_alt"></i>
+                                        <form method="POST" action="{{route('favourite_add')}}">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{$rs->product_id}}">
+                                            <button type="submit" class="icon_heart_alt"></i>
+                                        </form>
                                     </div>
                                     <ul>
-                                        <li class="w-icon active"><a href=""><i class="icon_bag_alt"></i></a></li>
-                                        <li class="quick-view"><a href="/product/{{$rs->id}}">+ Görüntüle</a></li>
+                                        <li class="w-icon active"><a href="/product/{{$rs->product_id}}"><i class="icon_bag_alt"></i></a></li>
+                                        <li class="quick-view"><a href="/product/{{$rs->product_id}}">+ Görüntüle</a></li>
                                     </ul>
                                 </div>
                                 <div class="pi-text">
-                                    <a href="#">
+                                    <a href="/product/{{$rs->product_id}}">
                                         <h5>{{$rs->title}}</h5>
                                     </a>
-                                    <div class="product-price">
-                                        {{$rs->price}}₺
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -70,11 +74,11 @@
             </div>
         </div>
         @endif
-        @if($favourite)
+        @if($data)
         <h3 style="text-align: center;">Beğenilen Ürünler Bulunamadı !</h3>
         <br><br>
         <div class="col-lg-12">
-            <div class="cart-buttons"  style="text-align: center;">
+            <div class="cart-buttons" style="text-align: center;">
                 <a href="/shop" class="primary-btn up-cart">Alışverişe devam et</a>
             </div>
         </div>

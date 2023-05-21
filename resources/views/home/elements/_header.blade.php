@@ -57,7 +57,6 @@
                         <li class="heart-icon">
                             <a href="#">
                                 <i class="icon_heart_alt"></i>
-                                <span>1</span>
                             </a>
                         </li>
                         <li class="cart-icon">

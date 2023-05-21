@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model
 {
     use HasFactory;
+    public function products()
+    {
+        return $this->belongsTo('App\Product');
+    }
 }

@@ -25,10 +25,6 @@ class Product extends Model
     {
         return $this->belongsTo(Collection::class);
     }
-    public function favourite()
-    {
-        return $this->hasMany(Favourite::class);
-    }
 
     public function stocks()
     {
