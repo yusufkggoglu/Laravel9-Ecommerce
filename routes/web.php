@@ -8,9 +8,9 @@ use App\Http\Controllers\Admin\AdminImageController;
 use App\Http\Controllers\Admin\AdminMessageController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminSettingController;
-use App\Http\Controllers\Admin\AdminSizeController;
 use App\Http\Controllers\Admin\AdminSliderController;
 use App\Http\Controllers\Admin\AdminStockController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShopCartController;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +48,8 @@ Route::middleware('auth')->group(function () {
     //****************USER ROUTES START*****************************
     Route::get('/favourites', [HomeController::class, 'favourite'])->name('favourite');
     Route::get('/favourite/add/{id}', [HomeController::class, 'favourite_add'])->name('favourite_add');
+    Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+    Route::post('/checkout-post', [CheckoutController::class, 'checkout_post'])->name('checkout_post');
 
     //****************ADMİN PANEL ROUTES START*****************************
     Route::middleware('admin')->prefix('admin')->name('admin_')->group(function () {
