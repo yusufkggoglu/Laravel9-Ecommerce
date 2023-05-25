@@ -119,7 +119,7 @@
                                 @endif
                             </ul>
                             @if($cartItem)
-                            <a href="#" class="proceed-btn">Ödeme Yap</a>
+                            <a href="/checkout" class="proceed-btn">Ödeme Yap</a>
                             @endif
                         </div>
                     </div>

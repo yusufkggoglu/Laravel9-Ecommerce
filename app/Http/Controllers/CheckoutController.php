@@ -22,29 +22,28 @@ class CheckoutController extends Controller
         return view('home.checkout', compact('cartItem', 'totalPrice'));
     }
 
-    public function checkout_post(Request $request)
+    public function checkout_post(Request $req)
     {       
-        
         /* Cart */
-        $cartNameSurname=$request->cartNameSurname;
-        $cartMonth=$request->cartMonth;
-        $cartYear=$request->cartYear;
-        $cartCode=$request->cartCode;
-        $cartCvc=$request->cartCvc;
+        $cartNameSurname=$req->cartNameSurname;
+        $cartMonth=$req->cartMonth;
+        $cartYear=$req->cartYear;
+        $cartCode=$req->cartCode;
+        $cartCvc=$req->cartCvc;
         /* User */
-        $firstName=$request->firstName;
-        $lastName=$request->lastName;
-        $address=$request->address;
-        $city=$request->city;
-        $email=$request->email;
-        $phone=$request->phone;
+        $firstName=$req->firstName;
+        $lastName=$req->lastName;
+        $address=$req->address;
+        $city=$req->city;
+        $email=$req->email;
+        $phone=$req->phone;
+        $user=Auth::user();
 
         $cartItem = session('cart', []);
         $totalPrice = 0;
         foreach ($cartItem as $cart) {
             $totalPrice += $cart['price'] * $cart['quantity'];
         }
-        $user=Auth::user();
 
         $options = new Options();
         $options->setApiKey(env("TEST_IYZI_API_KEY"));
@@ -79,7 +78,7 @@ class CheckoutController extends Controller
         $buyer->setGsmNumber($phone);
         $buyer->setEmail($email);
         $buyer->setRegistrationAddress($address);
-        $buyer->setIp(\request()->ip);
+        $buyer->setIp(request()->ip);
         $buyer->setCity($city);
         $buyer->setCountry("Türkiye");
         $request->setBuyer($buyer);
@@ -92,13 +91,33 @@ class CheckoutController extends Controller
         $request->setShippingAddress($shippingAddress);
 
         $billingAddress = new \Iyzipay\Model\Address();
-        $billingAddress->setContactName("Jane Doe");
-        $billingAddress->setCity("Istanbul");
-        $billingAddress->setCountry("Turkey");
-        $billingAddress->setAddress("Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1");
-        $billingAddress->setZipCode("34742");
+        $billingAddress->setContactName($firstName);
+        $billingAddress->setCity($city);
+        $billingAddress->setCountry("Türkiye");
+        $billingAddress->setAddress($address);
         $request->setBillingAddress($billingAddress);
 
+        $basketItems=$this->getBasketItems();
+        $request->setBasketItems($basketItems);
+        $payment = \Iyzipay\Model\Payment::create($request, $options);
+
+        if($payment->getStatus() == "success"){
+	
+            $req->session()->forget('cart'); 
+            return redirect()->route('order_status')->withSuccess('Sipariş Başarıyla Oluşturuldu !');
+        }
+        else{
+            return redirect()->route('order_status')->withErrors('Bir sorun oluştu ve sipariş oluşturulamadı , daha sonra tekrar deneyiniz !');
+        }
+    }
+    
+    /**
+     * Summary of getBasketItems
+     * @return array
+     */
+    private  function getBasketItems() :array
+    {
+        $cartItem = session('cart', []);
         $basketItems = array();
         foreach ($cartItem as $cart) {
             $product=Product::find($cart['productID']);
@@ -110,7 +129,6 @@ class CheckoutController extends Controller
             $item->setPrice($cart['price']*$cart['quantity']);
             array_push($basketItems,$item);  
         }
-        $request->setBasketItems($basketItems);
-        $payment = \Iyzipay\Model\Payment::create($request, $options);
+        return $basketItems;
     }
 }

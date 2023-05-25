@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Faq;
 use App\Models\Favourite;
 use App\Models\Image;
@@ -70,6 +71,8 @@ class HomeController extends Controller
     }
     public function product($id)
     {
+        $comment = Comment::where('product_id',$id)->where('status','True')->get();
+
         $stock = Stock::where('product_id', $id)
             ->where('stock', '>', 0)
             ->get();
@@ -90,6 +93,7 @@ class HomeController extends Controller
             'firstimage' => $firstimage,
             'stock' => $stock,
             'sameproducts' => $sameproducts,
+            'comment' => $comment,
         ]);
     }
     public function shop(Request $request)
@@ -176,6 +180,22 @@ class HomeController extends Controller
         $data->save();
 
         return redirect()->to('/contact#contact')->with('success', 'Mesajınız gönderildi , Teşekkürler.');
+    }
+
+    public function storecomment(Request $request)
+    { 
+        // dd($request);
+        $data = new Comment();
+        $data->user_id = Auth::id();
+        $data->product_id = $request->input('product_id');
+        $data->comment = $request->input('comment');
+        $data->ip = request()->ip();
+        $data->save();
+
+        $user = User::find(Auth::id());
+        $product = Product::find($request->product_id);
+
+        return redirect()->route('product',['id' => $request->input('product_id')])->with('success', 'Yorum yaptığınız için teşekkürler !');
     }
 
     public function loginadmincheck(Request $request)

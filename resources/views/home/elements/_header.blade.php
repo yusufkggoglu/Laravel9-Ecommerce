@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="select-button">
                                     <a href="/shopcart" class="primary-btn view-card">Sepet</a>
-                                    <a href="#" class="primary-btn checkout-btn">Ödeme</a>
+                                    <a href="/checkout" class="primary-btn checkout-btn">Ödeme</a>
                                 </div>
                             </div>
                         </li>

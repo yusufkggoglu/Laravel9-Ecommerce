@@ -54,15 +54,7 @@
                             <div class="pd-title">
                                 <span>{{$data->color}}</span>
                                 <h3>{{$data->title}}</h3>
-                                <a href="/favourite/add/{{$data->id}}" class="heart-icon" ><i class="icon_heart_alt"></i></a>
-                            </div>
-                            <div class="pd-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-o"></i>
-                                <span>(5)</span>
+                                <a href="/favourite/add/{{$data->id}}" class="heart-icon"><i class="icon_heart_alt"></i></a>
                             </div>
                             <div class="pd-desc">
                                 <p>{!! $data->description !!}</p>
@@ -198,64 +190,36 @@
                             </div>
                             <div class="tab-pane fade" id="tab-3" role="tabpanel">
                                 <div class="customer-review-option">
-                                    <h4>2 Comments</h4>
+                                    <h4>Yorum ({{$comment->count('id')}})</h4>
                                     <div class="comment-option">
+                                        @foreach($comment as $rs)
                                         <div class="co-item">
                                             <div class="avatar-pic">
-                                                <img src="{{asset('assets')}}/home/img/product-single/avatar-1.png" alt="">
+                                                <img src="{{asset('assets')}}/home/img/user.png" alt="">
                                             </div>
                                             <div class="avatar-text">
                                                 <div class="at-rating">
+                                                    <!-- <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
+                                                    <i class="fa fa-star-o"></i> -->
                                                 </div>
-                                                <h5>Brandon Kelley <span>27 Aug 2019</span></h5>
-                                                <div class="at-reply">Nice !</div>
+                                                <h5>{{$rs->user->name}} <span>{{$rs->created_at}}</span></h5>
+                                                <div class="at-reply">{{$rs->comment}}</div>
                                             </div>
                                         </div>
-                                        <div class="co-item">
-                                            <div class="avatar-pic">
-                                                <img src="{{asset('assets')}}/home/img/product-single/avatar-2.png" alt="">
-                                            </div>
-                                            <div class="avatar-text">
-                                                <div class="at-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                                <h5>Roy Banks <span>27 Aug 2019</span></h5>
-                                                <div class="at-reply">Nice !</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="personal-rating">
-                                        <h6>Your Ratind</h6>
-                                        <div class="rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
+                                        @endforeach
                                     </div>
                                     <div class="leave-comment">
-                                        <h4>Leave A Comment</h4>
-                                        <form action="#" class="comment-form">
+                                        <h4>Yorum yazıp fikirlerinizi paylaşabilirsiniz...</h4>
+                                        <form action="{{route('storecomment')}}" method="post">
+                                            @csrf
                                             <div class="row">
-                                                <div class="col-lg-6">
-                                                    <input type="text" placeholder="Name">
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input type="text" placeholder="Email">
-                                                </div>
+                                                <input class="input" type="hidden" name="product_id" value="{{$data->id}}">
                                                 <div class="col-lg-12">
-                                                    <textarea placeholder="Messages"></textarea>
-                                                    <button type="submit" class="site-btn">Send message</button>
+                                                    <textarea class="form-control mb-3" name="comment" id="comment" cols="30" rows="5" placeholder="Yorumunu bu alana yazabilirsin ..."></textarea>
+                                                    <input class="btn btn-main btn-round-full" type="submit" id="submit" value="Gönder">
                                                 </div>
                                             </div>
                                         </form>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Category;
 use App\Models\Collection;
+use App\Models\Comment;
 use App\Models\Stock;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,5 +30,10 @@ class Product extends Model
     public function stocks()
     {
         return $this->hasMany(Stock::class);
+    }
+
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

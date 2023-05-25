@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Comment;
 use App\Models\Role;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -63,5 +64,10 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class,'role_users');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

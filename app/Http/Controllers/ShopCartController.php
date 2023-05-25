@@ -57,7 +57,7 @@ class ShopCartController extends Controller
     }
     public function removeall(Request $request)
     {
-        $request->session()->flush();
+        $request->session()->forget('cart');
         return back()->withSuccess('Sepet Boşaltıldı !');
 
     }

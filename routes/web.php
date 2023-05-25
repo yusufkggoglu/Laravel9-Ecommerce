@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminCollectionController;
+use App\Http\Controllers\Admin\AdminCommentController;
 use App\Http\Controllers\Admin\AdminFaqController;
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\AdminImageController;
@@ -50,7 +51,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/favourite/add/{id}', [HomeController::class, 'favourite_add'])->name('favourite_add');
     Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
     Route::post('/checkout-post', [CheckoutController::class, 'checkout_post'])->name('checkout_post');
-
+    Route::view('/order_status', 'home.order_status')->name('order_status');
+    Route::post('/storecomment', [HomeController::class, 'storecomment'])->name('storecomment');
+    
     //****************ADMİN PANEL ROUTES START*****************************
     Route::middleware('admin')->prefix('admin')->name('admin_')->group(function () {
         Route::get('/', [AdminHomeController::class, 'index'])->name('adminhome');
@@ -127,6 +130,13 @@ Route::middleware('auth')->group(function () {
             Route::post('/update/{id}', 'update')->name('update');
             Route::get('/delete/{id}', 'destroy')->name('delete');
             Route::get('/show/{id}', 'show')->name('show');
+        });
+        //ADMIN COMMENT ROUTES
+        Route::prefix('/comment')->name('comment_')->controller(AdminCommentController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/show/{id}', 'show')->name('show');
+            Route::post('/update/{id}', 'update')->name('update');
+            Route::get('/destroy/{id}', 'destroy')->name('destroy');
         });
     });
 });
